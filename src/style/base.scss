@@ -1,0 +1,12 @@
+.container {
+    width: auto;
+    margin: 41px 100px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+@media(max-width: 1200px) {
+    .container {
+        margin: 41px 50px;
+    }
+}
