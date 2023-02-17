@@ -17,6 +17,9 @@
             size: 94px;
         }
     }
+    &__nav {
+        z-index: 2;
+    }
 
     .menu {
         display: flex;
@@ -193,5 +196,17 @@
 }
 
 @media(max-width: 575px) {
+    .header {
 
+        &__logo {
+
+        }
+        &__nav {
+            display: none;
+            width: 100vw;
+            .menu {
+
+            }
+        }
+    }
 }

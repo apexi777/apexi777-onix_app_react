@@ -1,10 +1,11 @@
 
-import loading_img from "../../resources/icons/loading.gif"
+import loading_img from "../../assets/icons/loading.gif"
 import { Helmet } from "react-helmet";
+import '../../style/style.scss';
 
 const KidsPage = () => {
     return(
-        <div style={{display: "flex", justifyContent: "center", margin: "20vh"}}>
+        <div className="pages">
                 <Helmet>
                     <meta name="description" content="Nike - Kids Page" />
                     <title>Nike - Kids Page</title>

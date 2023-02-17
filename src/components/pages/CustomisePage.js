@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet";
-import loading_img from "../../resources/icons/loading.gif"
-
+import loading_img from "../../assets/icons/loading.gif"
+import '../../style/style.scss';
 
 const CustomisePage = () => {
     return(
-        <div style={{display: "flex", justifyContent: "center", margin: "20vh"}}>
+        <div className="pages">
                 <Helmet>
                     <meta name="description" content="Nike - Customise Page" />
                     <title>Nike - Customise Page</title>

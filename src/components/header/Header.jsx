@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import NavElement from '../navElement/NavElement';
 import './Header.scss';
-import logo from '../../resources/icons/logo.png';
-import buy from "../../resources/icons/buy-icon.png";
-import search from "../../resources/icons/search-icon.png";
+import logo from '../../assets/icons/logo.png';
+import buy from "../../assets/icons/buy-icon.png";
+import search from "../../assets/icons/search-icon.png";
 
 const Header = (props) => {
 
@@ -62,24 +63,6 @@ const Header = (props) => {
 
             <Outlet/>
         </header>
-    )
-}
-
-//Navigation menu component
-const NavElement = ({name}) => {
-
-    const path = ((name === "Men") ? "/" : name).toLowerCase();
-
-    return (
-        <li >
-            <NavLink 
-                className={({ isActive }) => "menu_item" + (isActive ? " active_item" : "")}
-                end 
-                to={path}>
-            {name}
-            </NavLink>
-            
-        </li>
     )
 }
 

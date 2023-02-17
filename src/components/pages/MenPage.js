@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { Helmet } from "react-helmet";
+import ReactSlick from "../reactSlick/ReactSlick";
 
 import Promo from '../promo/Promo';
-import Catalog from '../catalog/Catalog';
 import Modal from "../modal/Modal";
 
 
@@ -16,8 +16,8 @@ class MenPage extends Component  {
     }
 
     //Changing the state on the selection of a catalog item
-    onSelectCatalog = (id,e) => {
-        e.preventDefault();       
+    onSelectCatalog = (id) => {
+        // e.preventDefault();       
         this.setState(({data}) => ({
             data : data.map((elem) => {
                 if (elem.id === id && !elem.visibleOnPromo) {
@@ -60,11 +60,10 @@ class MenPage extends Component  {
                 </Helmet>
                 <Promo 
                     activePromo={activePromo}/>
-                <Catalog 
+                <ReactSlick 
                     onSelectModal={this.onSelectModal} 
                     data={visibleData} 
-                    onSelectCatalog={this.onSelectCatalog}/>
-                                
+                    onSelectCatalog={this.onSelectCatalog}/>  
                 {modal}
             </>
         )

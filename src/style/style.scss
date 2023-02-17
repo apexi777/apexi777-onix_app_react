@@ -1,4 +1,4 @@
-@import '../resources/fonts/Poppins/stylesheet.css';
+@import '../assets/fonts/Poppins/stylesheet.css';
 
 * {
     font-family: "Poppins", sans-serif;
@@ -39,8 +39,26 @@ p {
     padding: 0;
 }
 
-// .app {
-//     // width: 1100px;
-//     margin: 0 auto;
-//     padding: 50px 0 50px 0;
-// }
+.pages {
+    display: flex;
+    justify-content: center; 
+    margin: 20vh;
+}
+
+.page_404 {
+    color:  white;
+    &__message {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        margin-top: 30vh;
+    }
+    &__link {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        margin-top: 30px;
+        margin-bottom: 20vh;
+    }
+}

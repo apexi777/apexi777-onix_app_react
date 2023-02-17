@@ -1,8 +1,8 @@
-
+import PromoShowing from '../promoShowing/PromoShowing';
 import './Promo.scss';
 
 const Promo = ({activePromo}) => {
-    
+      
     //Checking the current element PromoShowing
     const showing = (activePromo.length !== 0) ? <PromoShowing activePromo={activePromo}/> : null;
 
@@ -20,18 +20,6 @@ const Promo = ({activePromo}) => {
                {showing}
             </div>
         </div>
-    )
-}
-
-const PromoShowing = ({activePromo}) => {
-
-    return(
-        <div className="promo_showing">
-            <div className="promo_showing_title">
-                <p> NikeCourt Zoom <br /> {activePromo[0].name} </p>
-            </div>
-        <img className="promo_showing_element" src={activePromo[0].promo} alt="promo_image" />
-    </div>
     )
 }
 

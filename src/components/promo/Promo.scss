@@ -70,7 +70,7 @@
         &_showing {
             
             &_element {
-                width: 100%;
+                width: 800px;
             }
         }
     }
@@ -90,7 +90,7 @@
             }
         }
         &_showing {
-
+            margin-left: 20px;
             &_title {
                 width: 373px;
                 height: 84px;
@@ -101,8 +101,11 @@
                 }
             }
             &_element {
+                display: block;
                 margin-top: 90px;
-                width: 690px;
+                height: auto;
+                width: 790px;
+                overflow: hidden;
                 // transform: rotate(-15deg);
             }
         }
@@ -126,11 +129,12 @@
             }
         }
         &_showing {
+            margin-left: 20px;
             &_title {
                 width: 373px;
                 height: 84px;
                 border-radius: 71px;
-                margin-left: 2%;
+                margin-left: 50px;
                 p {
                     margin: 25px;
                     font-size: 18px;
@@ -138,8 +142,7 @@
             }
             &_element {
                 margin-top: 90px;
-                //margin-left: 2%;
-                width: 126%;
+                width: 120%;
                 // transform: rotate(-15deg);
             }
         }
@@ -156,5 +159,34 @@
 }
 
 @media(max-width: 575px) {
-
+    .promo {
+        //margin-top: 50px;
+        &_block {
+            width: 90%;
+            margin: 0 auto ;
+            &_header {
+                display: none;
+            }
+            &_subheader {
+                margin-top: 10px;
+                border-top: 1px solid rgb(243, 247, 4);
+                padding-top: 10px;
+                text-align: center;
+            }
+        }
+        &_showing {
+            margin-left: 0;
+            width: 92vw;
+            border-bottom: 1px solid rgb(243, 247, 4);
+            height: 300px;
+            margin-top: 0;
+            &_title {
+                display: none;
+            }
+            &_element {
+                margin-top: 0;
+                width: 100%;
+            }
+        }
+    }
 }

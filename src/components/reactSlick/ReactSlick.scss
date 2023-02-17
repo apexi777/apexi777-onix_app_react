@@ -1,8 +1,25 @@
 @import url('../../style/base.scss');
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+.slider {
 
-.catalog {
+    .slick-slider {
+        .slick-dots {
+            .slick-active {
+                button:before {
+                    color: orange;
+                }
+            }
+            li {
+                button:before {
+                    color: #FAFF23;
+                } 
+            }
+        }
+    }
     
     &_btn {
+        margin-left: 10%;
         text-transform: uppercase;
         font-weight: 700;
         font-size: 21px;
@@ -17,36 +34,41 @@
         cursor: pointer;
     }
     &_menu {
-        display: grid;
-        grid-template-columns: repeat(3, 190px);
-        gap: 90px;
-        justify-self: center;
+        // display: grid;
+        // grid-template-columns: repeat(3, 190px);
+        // gap: 90px;
+            //justify-self: center;
+            margin: auto;
+            width: 800px;
         &_item {
-            z-index: 2;
-            align-self: center;
-            justify-self: center;
-            margin-top: 20px;
+            // z-index: 2;
+            // align-self: center;
+            // justify-self: center;
+            margin: 20px auto 0;
             height: 160px;
             width: 192px;
             background: linear-gradient(180deg, rgba(250, 255, 35, 0.99) -4.65%, rgba(250, 255, 35, 0) 100%);
             border-radius: 28px;
+            transition: 0.9s img;
             cursor: pointer;
             transition: 0.6s all;
             img {
                 margin: 0 20px;
             }
-            p {
-                text-align: center;
-                margin-top: 20px;
-                font-weight: 600;
-                font-size: 13px;
-                line-height: 128%;
-                letter-spacing: 0.115em;
-                text-transform: capitalize;
-                color: #FFFFFF;
-            }
+        }
+        &_name {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 128%;
+            letter-spacing: 0.115em;
+            text-transform: capitalize;
+            color: #FFFFFF;
         }
     }
+
+    
     .activity {
         cursor: default;
         background: #FAFF23;
@@ -71,8 +93,9 @@
 
 
 
+
 @media(max-width: 1400px) {
-    .catalog {
+    .slider {
     
         &_btn {
             font-size: 20px;
@@ -81,13 +104,13 @@
             border-radius: 38px;
         }
         &_menu {
-            gap: 40px;
+            width: 700px;
         }
     }
 }
 
 @media(max-width: 1200px) {
-    .catalog {
+    .slider {
     
         &_btn {
             font-size: 20px;
@@ -95,11 +118,10 @@
             height: 52px;
         }
         &_menu {
-            grid-template-columns: repeat(3, 170px);
-            gap: 5px;
+            width: 630px;
             &_item {
-                height: 130px;
-                width: 162px;
+                height: 150px;
+                width: 182px;
                 img {
                     width: 80%;
                 }
@@ -108,7 +130,7 @@
         .activity {
             
             img {
-                margin: -19px 0 0 5px;
+                margin: 14px;
                 width: 152px;
             }
             p {
@@ -119,7 +141,18 @@
 }
 
 @media(max-width: 991px) {
+    .slider {
+        &_menu {
+            width: 570px;
+            
+        }
 
+        // .slick-slider.slick-initialized {
+        //     .slick-arrow .slick-prev {
+        //         display: none;
+        //     }
+        // }
+    }
 }
 
 @media(max-width: 767px) {
@@ -127,5 +160,38 @@
 }
 
 @media(max-width: 575px) {
+    .slick-slider {
+        .slick-prev {
+            left: -100%;
+            display: none;
+        }
+        .slick-next  {
+            left: -100%;
+        }
+    }
+    .slider {
+        &_btn {
+            grid-row: 2;
+            margin-top: 30px;
+            margin-left: 10px;
+        }
+        &_menu {
+            width: 95vw;
+            &_item {
+                height: 140px;
+                width: 150px;
+            }
+
+            
+        }
+        .activity {
+            img {
+                margin: 10px;
+                width: 126px;
+                height: 140px;
+            }
+        }
+        
+    }
 
 }

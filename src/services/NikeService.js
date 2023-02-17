@@ -1,10 +1,10 @@
-import shoes_1 from '../resources/img/rafa-hard-court.png';
-import shoes_2 from '../resources/img/pro-hard-court.png';
-import shoes_3 from '../resources/img/vapor-cage-4-rafa.png';
+import shoes_1 from '../assets/img/rafa-hard-court.png';
+import shoes_2 from '../assets/img/pro-hard-court.png';
+import shoes_3 from '../assets/img/vapor-cage-4-rafa.png';
 
-import promo_shoes_1 from '../resources/img/promo/promo_green_shoes_3.png';
-import promo_shoes_2 from '../resources/img/promo/promo_green_shoes_2.png';
-import promo_shoes_3 from '../resources/img/promo/promo_green_shoes.png';
+import promo_shoes_1 from '../assets/img/promo/promo_green_shoes_3.png';
+import promo_shoes_2 from '../assets/img/promo/promo_green_shoes_2.png';
+import promo_shoes_3 from '../assets/img/promo/promo_green_shoes.png';
 
 class NikeServices {
     data = [
@@ -24,6 +24,25 @@ class NikeServices {
             id : 3,
             name : 'Vapor Cage 4 Rafa',
             visibleOnPromo : true,
+            promo : promo_shoes_3,
+            price : 60},
+            //Temporary data
+        {image : shoes_1,
+            id : 4,
+            name : 'Only Hard pro',
+            visibleOnPromo : false,
+            promo : promo_shoes_1,
+            price : 75},
+        {image : shoes_2,
+            id : 5,
+            name : 'Super Court',
+            visibleOnPromo : false,
+            promo : promo_shoes_2,
+            price : 82},
+        {image : shoes_3,
+            id : 6,
+            name : 'Brain',
+            visibleOnPromo : false,
             promo : promo_shoes_3,
             price : 60}
     ];

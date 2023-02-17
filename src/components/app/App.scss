@@ -9,3 +9,10 @@
 .actives {
     opacity: 0.6;
 }
+
+
+@media(max-width: 575px) {
+    .app {
+        padding: 10px 0;
+    }
+}
