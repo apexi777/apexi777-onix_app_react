@@ -19,6 +19,9 @@
     }
     &__nav {
         z-index: 2;
+        &_btn {
+            display: none;
+        }
     }
 
     .menu {
@@ -202,10 +205,49 @@
 
         }
         &__nav {
-            display: none;
+            display: block;
             width: 100vw;
+            &_btn {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                cursor:pointer;
+                display: block;
+                width: 20px;
+                height: 20px;
+                font-size: 45px;
+                font-weight:bold;
+                
+                &::before{
+                    color: #fff;
+                    width: 20px;
+                    height: 20px;
+                    content: '\2713';
+                }
+                //background-color: #fff;
+            }
             .menu {
-
+                display: flex;
+                flex-wrap: wrap;
+                height: 0px;
+                width: 100%;
+                background-color: rgba(71, 70, 73, 0.2);
+                overflow-x: auto;
+                overflow-y: hidden;
+                margin-top: 10px;
+                transition: 0.5s;
+                &_buy {
+                    position: absolute;
+                    right: 20px;
+                    top: 20px;
+                }
+            }
+            .acivity {
+                justify-content: space-around;
+                height: 100px;
+                .menu_search_submit {
+                    margin: 16px;
+                }
             }
         }
     }

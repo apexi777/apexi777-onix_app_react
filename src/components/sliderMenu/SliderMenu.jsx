@@ -1,10 +1,11 @@
 import { Component } from "react";
 import Slider from "react-slick";
 import SliderElement from "../sliderElement/SliderElement";
-import './ReactSlick.scss';
+import SliderButtons from "../sliderButtons/SliderButtons";
+import './SliderMenu.scss';
 
 
-class ReactSlick extends Component {
+class SliderMenu extends Component {
 
   //Slider elements
   elements = (data) => {
@@ -15,6 +16,8 @@ class ReactSlick extends Component {
               key={id}
               {...itemProps}
               onSelectCatalog={()=> this.props.onSelectCatalog(id)}
+              toggleFavorite={() => this.props.toggleFavorite(id)}
+              deletedCard={ () => {this.props.deletedCard(id)}}
           />
       )
     })
@@ -27,26 +30,28 @@ class ReactSlick extends Component {
       if (data.length > 0 && data.length <= 3 ) return data.length
       else return 3 ;
     }
-    
   }
 
   render() {
+    const {data, onSortDataByPrice, onSelectModal, addNewCards} = this.props;
+
     //button activity
-    const showButton = (this.props.data.length !== 0) ? <button onClick={(e) => this.props.onSelectModal(e)} className='slider_btn'>shop now</button> : null;
+    const showButton = (this.props.data.length !== 0) ?  <SliderButtons data={data} onSortDataByPrice={onSortDataByPrice} onSelectModal={onSelectModal} addNewCards={addNewCards}/>: null;
     
     //Settings by Slick Slider library
     const settings = {
       dots: true,
-      fade: false,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: this.setSlidesToShow(this.props.data),
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      initialSlide: 1
     };
     return (
       <div className="slider">
           <div className="container">
               {showButton}
+              
               <div className="slider_menu">
                 <Slider {...settings}>
                   {this.elements(this.props.data)}
@@ -58,4 +63,4 @@ class ReactSlick extends Component {
   }
 }
 
-export default ReactSlick;
+export default SliderMenu;

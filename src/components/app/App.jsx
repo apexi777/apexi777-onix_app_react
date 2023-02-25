@@ -30,6 +30,7 @@ const App = () => {
                     />}>
                     <Route index element={ <MenPage
                         searchCards={Service.searchCards}
+                        onSortDataByPrice={Service.onSortDataByPrice}
                         data={listData}
                         search={search}
                     />}/>

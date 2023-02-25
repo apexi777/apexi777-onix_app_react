@@ -15,6 +15,8 @@ const Header = (props) => {
         { name : 'Customise', action : false, id : 104}
     ]);
 
+    const [classMenu, setClassMenu] = useState('menu');
+
     //Intermediate values ​​of search data
     const [terminate, setTerminate] = useState('');
 
@@ -23,6 +25,12 @@ const Header = (props) => {
         const value = e.target.value.replace(/[^A-Za-z0-9]/, '');
         setTerminate(value)
         props.onUpdateSearch(value);
+    }
+
+
+    const onShowNavMenu = () => {
+        if (classMenu === "menu") setClassMenu('menu acivity')
+        else setClassMenu('menu')
     }
 
     //Forming navigation menu elements
@@ -46,7 +54,8 @@ const Header = (props) => {
                     <img className="header__logo_icon" src={logo} alt="logo" />
                 </div>
                 <nav className="header__nav">
-                    <ul className="menu">
+                    <div onClick={onShowNavMenu} className="header__nav_btn"></div>
+                    <ul className={classMenu}>
                         {menu_element}
                         <form className="menu_search" action="#">
                             <input onChange={onUpdateSearch} value={terminate} placeholder="Search" type="text" className="menu_search_input" />

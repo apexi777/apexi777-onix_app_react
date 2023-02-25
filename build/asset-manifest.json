@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/onix_app_react/static/css/main.cf455834.css",
+    "main.js": "/onix_app_react/static/js/main.8d78dcda.js",
+    "static/media/promo_green_shoes_3.png": "/onix_app_react/static/media/promo_green_shoes_3.7207149cfd7315517465.png",
+    "static/media/promo_green_shoes_2.png": "/onix_app_react/static/media/promo_green_shoes_2.ae96bd58192e502e7e80.png",
+    "static/media/promo_green_shoes.png": "/onix_app_react/static/media/promo_green_shoes.6c05dddf69e0f63baf91.png",
+    "static/media/Poppins-Thin.ttf": "/onix_app_react/static/media/Poppins-Thin.7a59686394de42965f76.ttf",
+    "static/media/loading.gif": "/onix_app_react/static/media/loading.f8fa2d492d3920e10f4f.gif",
+    "static/media/Poppins-Regular.ttf": "/onix_app_react/static/media/Poppins-Regular.e09d5cf4d895b8585f80.ttf",
+    "static/media/Poppins-Medium.ttf": "/onix_app_react/static/media/Poppins-Medium.c8811e16c7cc3159fb7d.ttf",
+    "static/media/Poppins-SemiBold.ttf": "/onix_app_react/static/media/Poppins-SemiBold.0763b5bba5e8c46bf86f.ttf",
+    "static/media/Poppins-Regular.woff": "/onix_app_react/static/media/Poppins-Regular.387f9003f984ef1cec60.woff",
+    "static/media/Poppins-SemiBold.woff": "/onix_app_react/static/media/Poppins-SemiBold.71da8e4f0d76b718897c.woff",
+    "static/media/Poppins-Medium.woff": "/onix_app_react/static/media/Poppins-Medium.7e588a26bdac2428f240.woff",
+    "static/media/Poppins-Thin.woff": "/onix_app_react/static/media/Poppins-Thin.654968a8c2ee9e7c8bb6.woff",
+    "static/media/Poppins-Regular.woff2": "/onix_app_react/static/media/Poppins-Regular.ad19729d6a0511212493.woff2",
+    "static/media/Poppins-SemiBold.woff2": "/onix_app_react/static/media/Poppins-SemiBold.3c3f3613b59d581739fc.woff2",
+    "static/media/Poppins-Medium.woff2": "/onix_app_react/static/media/Poppins-Medium.563f976db73ca07d8fc3.woff2",
+    "static/media/Poppins-Thin.woff2": "/onix_app_react/static/media/Poppins-Thin.852bafc278ec1d018963.woff2",
+    "static/media/vapor-cage-4-rafa.png": "/onix_app_react/static/media/vapor-cage-4-rafa.11f2851e5466e343cfdd.png",
+    "static/media/pro-hard-court.png": "/onix_app_react/static/media/pro-hard-court.91854a9cd01746a58e8b.png",
+    "static/media/rafa-hard-court.png": "/onix_app_react/static/media/rafa-hard-court.31b55d288120d97c06d5.png",
+    "static/media/slick.svg": "/onix_app_react/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/onix_app_react/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/onix_app_react/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/onix_app_react/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/onix_app_react/index.html",
+    "main.cf455834.css.map": "/onix_app_react/static/css/main.cf455834.css.map",
+    "main.8d78dcda.js.map": "/onix_app_react/static/js/main.8d78dcda.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf455834.css",
+    "static/js/main.8d78dcda.js"
+  ]
+}

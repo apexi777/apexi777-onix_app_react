@@ -1,8 +1,9 @@
 @import url('../../style/base.scss');
 @import "~slick-carousel/slick/slick.css"; 
 @import "~slick-carousel/slick/slick-theme.css";
+@import "../../style/mixins.scss";
 .slider {
-
+    
     .slick-slider {
         .slick-dots {
             .slick-active {
@@ -19,31 +20,21 @@
     }
     
     &_btn {
+        transition: transform 0.9s;
+        transform: translateX(0);
         margin-left: 10%;
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 21px;
-        line-height: 129%;
-        letter-spacing: 0.015em;
-        color: rgba(250, 255, 35, 0.99);
-        width: 194px;
-        height: 58px;
-        background: linear-gradient(106.81deg, #179B93 43.2%, rgba(217, 217, 217, 0.71) 61.6%);
-        border-radius: 39px;
-        border: none;
-        cursor: pointer;
+        @include buttons;
     }
+    &_block {
+        position: relative;
+        max-width: fit-content;
+    }
+
     &_menu {
-        // display: grid;
-        // grid-template-columns: repeat(3, 190px);
-        // gap: 90px;
-            //justify-self: center;
             margin: auto;
             width: 800px;
         &_item {
-            // z-index: 2;
-            // align-self: center;
-            // justify-self: center;
+            position: relative;
             margin: 20px auto 0;
             height: 160px;
             width: 192px;
@@ -55,6 +46,43 @@
             img {
                 margin: 0 20px;
             }
+            &_deleted {
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 5%;
+                right: 5%;
+                transform: translate(40%, -40%);
+                cursor: pointer;
+                z-index: 2;
+                &:before { 
+                    font-size: 20px;
+                    width: 30px;
+                    height: 30px;
+                    color:white;
+                    content : '\2718';
+
+                }
+            }
+            &_favorite {
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                left: 10%;
+                top: 5%;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+                &:before { 
+                    font-size: 25px;
+                    width: 30px;
+                    height: 30px;
+                    color:#ac8888;
+                    content : '\2605';
+                    
+                }
+            }
         }
         &_name {
             text-align: center;
@@ -65,6 +93,12 @@
             letter-spacing: 0.115em;
             text-transform: capitalize;
             color: #FFFFFF;
+        }
+        &_price {
+            text-align: center;
+            text-decoration:underline dashed;
+            color: rgb(255, 253, 251);
+            margin: 10px;
         }
     }
 
@@ -87,6 +121,18 @@
             text-transform: capitalize;
             color: #FFFFFF;
             text-shadow: 0px 1px 7px #000000;
+        }
+        &_deleted {
+            &::before{
+
+            }
+        }
+    }
+
+    .select {
+        &:before { 
+            color:rgb(252, 145, 5);
+            content : '\2605';
         }
     }
 }
@@ -146,12 +192,6 @@
             width: 570px;
             
         }
-
-        // .slick-slider.slick-initialized {
-        //     .slick-arrow .slick-prev {
-        //         display: none;
-        //     }
-        // }
     }
 }
 

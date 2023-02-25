@@ -4,7 +4,7 @@ import './Promo.scss';
 const Promo = ({activePromo}) => {
       
     //Checking the current element PromoShowing
-    const showing = (activePromo.length !== 0) ? <PromoShowing activePromo={activePromo}/> : null;
+    const showing = (activePromo) ? <PromoShowing activePromo={activePromo}/> : null;
 
     return (
         <div className="promo">

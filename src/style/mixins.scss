@@ -1,0 +1,71 @@
+@mixin buttons($size : 21px, $width : 194px, $height: 58px) {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: $size;
+    line-height: 129%;
+    letter-spacing: 0.015em;
+    color: rgba(250, 255, 35, 0.99);
+    width: $width;
+    height: $height;
+    background: linear-gradient(106.81deg, #179B93 43.2%, rgba(217, 217, 217, 0.71) 61.6%);
+    border-radius: 39px;
+    border: none;
+    cursor: pointer;
+}
+
+@mixin btn_close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0 40px 0 0;
+    
+    background-color: transparent;
+    transition: all 0.3s ease-out;
+    border: none;
+    cursor: pointer;
+    
+    font-size: 18px;
+    font-weight: bold;
+    
+    z-index: 1;
+    
+    &::before,
+    &::after {
+        content: '';
+        
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        
+        display: block;
+        width: 20px;
+        height: 4px;
+        
+        transition: all 0.3s ease-out;
+        
+        border-radius: 2px;
+        
+        background-color: rgba(250, 249, 246, 0.986);
+    }
+    &::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    
+    &:hover {
+        color: rgb(184, 102, 1);
+        
+        &::before {
+        transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        &::after {
+        transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+}
