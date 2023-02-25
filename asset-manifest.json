@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/onix_app_react/static/css/main.cf455834.css",
-    "main.js": "/onix_app_react/static/js/main.8d78dcda.js",
+    "main.css": "/onix_app_react/static/css/main.a1a0658a.css",
+    "main.js": "/onix_app_react/static/js/main.b5f688d7.js",
     "static/media/promo_green_shoes_3.png": "/onix_app_react/static/media/promo_green_shoes_3.7207149cfd7315517465.png",
     "static/media/promo_green_shoes_2.png": "/onix_app_react/static/media/promo_green_shoes_2.ae96bd58192e502e7e80.png",
     "static/media/promo_green_shoes.png": "/onix_app_react/static/media/promo_green_shoes.6c05dddf69e0f63baf91.png",
@@ -26,11 +26,11 @@
     "static/media/slick.ttf": "/onix_app_react/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/onix_app_react/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/onix_app_react/index.html",
-    "main.cf455834.css.map": "/onix_app_react/static/css/main.cf455834.css.map",
-    "main.8d78dcda.js.map": "/onix_app_react/static/js/main.8d78dcda.js.map"
+    "main.a1a0658a.css.map": "/onix_app_react/static/css/main.a1a0658a.css.map",
+    "main.b5f688d7.js.map": "/onix_app_react/static/js/main.b5f688d7.js.map"
   },
   "entrypoints": [
-    "static/css/main.cf455834.css",
-    "static/js/main.8d78dcda.js"
+    "static/css/main.a1a0658a.css",
+    "static/js/main.b5f688d7.js"
   ]
 }
