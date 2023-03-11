@@ -1,30 +1,45 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import plus from '../../../assets/img/plus.png';
+import SlideItemView from './SlideItemView';
 
-// const images = require('../../../assets/img/rafa-hard-court.png');
+import plus from '../../../assets/img/plus.png';
+import loadingImage from '../../../assets/spinner.svg';
+import errorImage from '../../../assets/error_image.png';
 
 class SliderItem extends Component {
-  // getImage = (url) => {
-  //   try {
-  //     // eslint-disable-next-line global-require, import/no-dynamic-require
-  //     const response = require(url);
+  constructor(props) {
+    super(props);
+    this.state = {
+      src: '',
+      error: false,
+      loaded: false
+    };
+  }
 
-  //     if (!response.ok) {
-  //       throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-  //     }
- 
-  //     return response;
-  //   } catch {
-  //     return plus;
-  //   }
-  // };
+  componentDidMount() {
+    const { image } = this.props;
+    this.setState({ src: image });
+  }
+
+  onError = () => {
+    const { error } = this.state;
+    if (!error) {
+      this.setState({
+        src: errorImage,
+        error: true,
+        loaded: true
+      });
+    }
+  };
+
+  imageOnLoaded = () => {
+    this.setState(({ loaded: true }));
+  };
 
   render() {
     const {
-      name, 
-      image,
+      name,
       price,
       select,
       style, 
@@ -40,38 +55,31 @@ class SliderItem extends Component {
       onDragOver 
     } = this.props;
 
+    const { src, loaded } = this.state;
+
     return (
-      <div className={style}>
-        <div 
-          className={`card ${(overId === id) ? 'card_over' : ''}`}
-          onDragStart={onDragStart}
-          onDragLeave={onDragLeave}
-          onDragEnd={onDragEnd}
-          onDragOver={onDragOver}
-          onDrop={onDrop}
-        >
-          <img
-            onError={this.onError}
-            aria-hidden="true" 
-            onClick={onSelectCatalog} 
-            className="card_image" 
-            src={image}
-            alt={name} 
-          />
-          <img className="card_plus" src={plus} alt="add Cards" />
-          <div 
-            aria-hidden="true" 
-            onClick={toggleFavorite}
-            className={`card_favorite ${select.favorite ? 'select' : ''}`}
-          />
-          <div aria-hidden="true" onClick={deletedCard} className="card_deleted" />
-          <p className="card_name">{name}</p>
-          <div className="card_price">
-            Price :
-            {price}
-          </div>
-        </div>    
-      </div>
+      <SlideItemView 
+        name={name}
+        price={price}
+        select={select}
+        style={style}
+        toggleFavorite={toggleFavorite}
+        deletedCard={deletedCard}
+        onDragStart={onDragStart}
+        onDragLeave={onDragLeave}
+        onSelectCatalog={onSelectCatalog}
+        onDragEnd={onDragEnd}
+        onDrop={onDrop}
+        overId={overId}
+        id={id}
+        onDragOver={onDragOver}
+        loaded={loaded}
+        loadingImage={loadingImage}
+        plus={plus}
+        src={src}
+        onError={this.onError}
+        imageOnLoaded={this.imageOnLoaded}
+      />
     );
   }
 }
