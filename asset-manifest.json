@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/onix_app_react/static/css/main.c0eed446.css",
-    "main.js": "/onix_app_react/static/js/main.bf5d577f.js",
+    "main.js": "/onix_app_react/static/js/main.f09366ed.js",
     "static/media/promo_green_shoes_3.png": "/onix_app_react/static/media/promo_green_shoes_3.7207149cfd7315517465.png",
     "static/media/promo_green_shoes_2.png": "/onix_app_react/static/media/promo_green_shoes_2.ae96bd58192e502e7e80.png",
     "static/media/promo_green_shoes.png": "/onix_app_react/static/media/promo_green_shoes.6c05dddf69e0f63baf91.png",
@@ -22,16 +22,17 @@
     "static/media/pro-hard-court.png": "/onix_app_react/static/media/pro-hard-court.91854a9cd01746a58e8b.png",
     "static/media/plus.png": "/onix_app_react/static/media/plus.1d7e7ed1735ede154033.png",
     "static/media/rafa-hard-court.png": "/onix_app_react/static/media/rafa-hard-court.31b55d288120d97c06d5.png",
+    "static/media/spinner.svg": "/onix_app_react/static/media/spinner.5851f82295a0aeba33e07ec72d99c6ab.svg",
     "static/media/slick.svg": "/onix_app_react/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/onix_app_react/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/onix_app_react/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/onix_app_react/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/onix_app_react/index.html",
     "main.c0eed446.css.map": "/onix_app_react/static/css/main.c0eed446.css.map",
-    "main.bf5d577f.js.map": "/onix_app_react/static/js/main.bf5d577f.js.map"
+    "main.f09366ed.js.map": "/onix_app_react/static/js/main.f09366ed.js.map"
   },
   "entrypoints": [
     "static/css/main.c0eed446.css",
-    "static/js/main.bf5d577f.js"
+    "static/js/main.f09366ed.js"
   ]
 }
