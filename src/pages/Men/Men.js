@@ -25,6 +25,7 @@ class Men extends Component {
         {
           image: shoes1,
           id: 1,
+          order: 1,
           name: 'Rafa Hard Court',
           visibleOnPromo: false,
           promo: promoShoes1,
@@ -34,6 +35,7 @@ class Men extends Component {
         {
           image: shoes2,
           id: 2,
+          order: 2,
           name: 'Pro Hard Court',
           visibleOnPromo: false,
           promo: promoShoes2,
@@ -43,6 +45,7 @@ class Men extends Component {
         {
           image: shoes3,
           id: 3,
+          order: 3,
           name: 'Vapor Cage 4 Rafa',
           visibleOnPromo: true,
           promo: promoShoes3,
@@ -53,6 +56,7 @@ class Men extends Component {
         {
           image: shoes1,
           id: 4,
+          order: 4,
           name: 'Only Hard pro',
           visibleOnPromo: false,
           promo: promoShoes1,
@@ -62,6 +66,7 @@ class Men extends Component {
         {
           image: shoes2,
           id: 5,
+          order: 5,
           name: 'Super Court',
           visibleOnPromo: false,
           promo: promoShoes2,
@@ -71,6 +76,7 @@ class Men extends Component {
         {
           image: shoes3,
           id: 6,
+          order: 6,
           name: 'Brain',
           visibleOnPromo: false,
           promo: promoShoes3,
@@ -107,9 +113,9 @@ class Men extends Component {
 
     // If the user has selected a value in the sort menu, the object is validated
     if (prevState.select !== select) {
-      let temporaryValue = showData;
-      if (temporaryValue.length === 0) {
-        temporaryValue = data;
+      let temporaryValue = showData.slice(0);
+      if (showData.length === 0) {
+        temporaryValue = data.slice(0);
       }
       temporaryValue = this.onSortDataByPrice(temporaryValue, select);
       this.setState(({ showData: temporaryValue }));
@@ -122,16 +128,19 @@ class Men extends Component {
 
   // Add new object to data object
   addNewCards = (name, price) => {
+    const { showData } = this.state;
     if (typeof (name) === 'string' || typeof (price) === 'number') {
       const newCards = {
         image: shoes3,
         name,
+        order: showData.length + 1,
         visibleOnPromo: false,
         promo: promoShoes3,
         id: uuidv4(),
         price,
         select: {}
       };
+      // eslint-disable-next-line no-shadow
       this.setState(({ showData }) => {
         const newArr = [...showData, newCards];
         return {
@@ -195,17 +204,9 @@ class Men extends Component {
   onSortDataByPrice = (data, text) => {
     switch (text) {
       case 'Price: Low-High':
-        return this.bubbleSort(data);
+        return this.bubbleSort(data, 'low');
       case 'Price: High-Low': 
-        return data.sort((prev, next) => {
-          if (prev.price < next.price) {
-            return 1;
-          }
-          if (prev.price < next.price) {
-            return -1;
-          }
-          return 0;
-        });
+        return this.bubbleSort(data, 'high');
       case 'Featured': {
         let secondaryData = [];
         const count = data.reduce((result, value) => result + (JSON.stringify(value.select) !== '{}'), 0);
@@ -222,11 +223,17 @@ class Men extends Component {
   };
 
   // Sort array by price value from lowest to highest
-  bubbleSort = (array) => {
-    const secondaryArray = array;
+  bubbleSort = (array, text) => {
+    const secondaryArray = array.slice(0);
     for (let i = 0; i < array.length; i += 1) {
       for (let a = 0; a < secondaryArray.length - 1; a += 1) {
-        if (secondaryArray[a].price > secondaryArray[a + 1].price) {
+        if (text === 'low') {
+          if (secondaryArray[a].price > secondaryArray[a + 1].price) {
+            const secondaryValue = secondaryArray[a].price;
+            secondaryArray[a].price = secondaryArray[a + 1].price;
+            secondaryArray[a + 1].price = secondaryValue;
+          }
+        } else if (secondaryArray[a].price < secondaryArray[a + 1].price) {
           const secondaryValue = secondaryArray[a].price;
           secondaryArray[a].price = secondaryArray[a + 1].price;
           secondaryArray[a + 1].price = secondaryValue;
@@ -261,13 +268,23 @@ class Men extends Component {
     }
     return data; 
   };
+
+  updateData = (inDragBlock, inDragOverBlock) => {
+    this.setState(({ showData }) => ({
+      showData: showData.map((card) => {
+        if (card.id === inDragOverBlock.id) {
+          return { ...card, order: inDragBlock.order };
+        }
+        if (card.id === inDragBlock.id) {
+          return { ...card, order: inDragOverBlock.order };
+        }
+        return card;
+      })
+    }));
+  };
    
   render() {  
     const { showData, activeModal, activePromo } = this.state;
-        
-    // Checking the current element Modal
-    const modal = activeModal ? <Modal onSelectModal={this.onSelectModal} activePromo={activePromo} /> : null;    
-
     return (
       <>  
         <Helmet>
@@ -281,6 +298,7 @@ class Men extends Component {
           setSelectState={this.setSelectState}
         />
         <Catalog 
+          updateData={this.updateData}
           onSelectModal={this.onSelectModal} 
           data={showData} 
           onSelectCatalog={this.onSelectCatalog}
@@ -288,7 +306,9 @@ class Men extends Component {
           toggleFavorite={this.toggleFavorite}
           addNewCards={this.addNewCards}
         />  
-        {modal}
+        {activeModal 
+          ? <Modal onSelectModal={this.onSelectModal} activePromo={activePromo} /> 
+          : null}
       </>
     );
   }

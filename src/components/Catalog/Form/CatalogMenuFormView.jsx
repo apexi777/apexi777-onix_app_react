@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class CatalogMenuFormView extends Component {
   render() {
     const {
-      nameReg, priceReg, handleSubmit, addNewCards, errors, toggleMenuFilter 
+      nameReg, priceReg, handleSubmit, addNewCards, clearErrors, reset, errors, toggleMenuFilter 
     } = this.props;
     return (
       <div className="cards">
@@ -18,6 +18,13 @@ class CatalogMenuFormView extends Component {
               ref={nameReg.ref}
               type="name"
               placeholder="Enter name"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === '1' && e.ctrlKey) {
+                  clearErrors();
+                  reset();
+                }
+              }}
             />
             <div className="error_name">
               {errors?.name?.message}
@@ -29,11 +36,19 @@ class CatalogMenuFormView extends Component {
               ref={priceReg.ref}
               type="price"
               placeholder="Enter price"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === '1' && e.ctrlKey) {
+                  clearErrors();
+                  reset();
+                }
+              }}
             />
             <div className="error_price">
               {errors?.price?.message}
             </div>
             <button className="form_submit" type="submit">Add Card</button>
+            <p className="form_info">After change - press ctrl+1 to reset form</p>
           </form>
         </div>
         <button aria-label="close form" type="button" onClick={toggleMenuFilter} className="cards_close" />
@@ -49,6 +64,8 @@ CatalogMenuFormView.propTypes = {
   priceReg: PropTypes.shape().isRequired,
   handleSubmit: PropTypes.func.isRequired,
   errors: PropTypes.shape().isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default CatalogMenuFormView;

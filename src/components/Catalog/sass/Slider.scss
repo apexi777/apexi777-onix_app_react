@@ -1,0 +1,164 @@
+.block_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    .cards_menu {
+        position: relative;
+        width: 800px;
+        min-height: 200px;
+        overflow: hidden;
+        .choice {
+            cursor: default;
+            background: #FAFF23;
+            border-radius: 28px;
+            color: black;
+            font-weight: bold;
+            .card_image {            
+                filter: drop-shadow(0px 29px 37px rgba(0, 0, 0, 0.56));
+            }
+        }
+        .slide {
+            cursor: pointer;
+            width: 28%;
+            height: 100%;
+            position: absolute; 
+            text-align: center;
+            transition: left 1s;
+            &_prev {
+                left: -33%;
+            }
+            &_next {
+                left: 100%;
+            }
+            &_active {
+                left: 5%;
+            }
+            &_active2 {
+                left: 38%;
+            }
+            &_active3 {
+                left: 71%;
+            }
+            .card {
+                display: grid;
+                justify-content: center;
+                background: linear-gradient(180deg, rgba(250, 255, 35, 0.99) -4.65%, rgba(250, 255, 35, 0) 100%);
+                border-radius: 20px;
+                height: 100%;
+                color: antiquewhite;
+                text-shadow: 0px 1px 7px #000000;
+                &_plus {
+                    display: none;
+                }
+                &_deleted {
+                    text-shadow: 0px 1px 2px #000000;
+                    display: block;
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    top: 5%;
+                    right: 5%;
+                    transform: translate(40%, -40%);
+                    cursor: pointer;
+                    z-index: 2;
+                    &:before { 
+                        font-size: 20px;
+                        width: 30px;
+                        height: 30px;
+                        color:white;
+                        content : '\2718';
+    
+                    }
+                }
+                &_favorite {
+                    text-shadow: 0px 1px 2px #000000;
+                    display: block;
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    left: 10%;
+                    top: 5%;
+                    transform: translate(-50%, -50%);
+                    cursor: pointer;
+                    &:before { 
+                        font-size: 25px;
+                        width: 30px;
+                        height: 30px;
+                        color:#ac8888;
+                        content : '\2605';
+                        
+                    }
+                }
+                .select {
+                    &:before { 
+                        color:rgb(252, 145, 5);
+                        content : '\2605';
+                    }
+                }
+            }
+            .card_over {
+                .card {
+                    &_plus {
+                        display: block;
+                        max-width: 100%;
+                    }
+                    &_image {
+                        display: none;
+                    }
+                    &_name {
+                        display: none;
+                    }
+                    &_price {
+                        display: none;
+                    }
+                    &_favorite {
+                        display: none;
+                    }
+                    &_delete {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.button {
+    //margin-top: 10%;
+    cursor: pointer;
+    z-index: 1;
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    border-top: 4px solid gray;
+    border-radius: 3px;
+    &_right {
+        border-right: 4px solid gray;
+        transform: rotate(45deg);
+        &:hover {
+            border-top: 5px solid rgb(255, 252, 252);
+            border-right: 5px solid rgb(250, 250, 250);
+            border-radius: 3px;
+        }
+    }
+    &_left {
+        border-left: 4px solid gray;
+        transform: rotate(-45deg);
+        &:hover {
+            border-top: 5px solid rgb(255, 255, 255);
+            border-left: 5px solid rgb(255, 252, 252);
+            border-radius: 3px;
+        }
+    }
+}
+
+@media(max-width: 1400px) {
+    .block_card {
+        .cards_menu {
+            width: 700px;
+        }
+    }
+}

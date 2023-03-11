@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-function PromoContent({ activePromo, classNames }) {
+function PromoContent({ activePromo }) {
   return (
-    <div className={classNames}>
+    <div className={`promo_showing ${!activePromo.promo ? 'disabled' : ''}`}>
       <div className="promo_showing_title">
         <p>
           {' '}
@@ -20,7 +20,6 @@ function PromoContent({ activePromo, classNames }) {
 
 PromoContent.propTypes = {
   activePromo: PropTypes.shape(),
-  classNames: PropTypes.string.isRequired,
 };
 
 PromoContent.defaultProps = {

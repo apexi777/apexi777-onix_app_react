@@ -3,14 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 // Navigation menu component from header
 function HeaderNav({ name }) {
-  const path = ((name === 'Men') ? '/' : name).toLowerCase();
-
   return (
     <li>
       <NavLink 
         className={({ isActive }) => `menu_item${isActive ? ' active_item' : ''}`}
         end 
-        to={path}
+        to={(name === 'Men') ? '/' : name.toLowerCase()}
       >
         {name}
       </NavLink>

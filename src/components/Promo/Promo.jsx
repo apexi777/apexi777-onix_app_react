@@ -1,33 +1,20 @@
-import { useState, useEffect } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PromoView from './PromoView';
-import PromoContent from './PromoContent';
 import './sass/Promo.scss';
 
-function Promo({ activePromo }) {
-  // Checking the current element PromoContent
-  const [activeContent, setActiveContent] = useState('promo_showing');
+class Promo extends Component {
+  render() {
+    const { activePromo } = this.props;
 
-  useEffect(() => {
-    if (activePromo === undefined) {
-      setActiveContent('promo_showing disabled');
-    } else {
-      setActiveContent('promo_showing');
-    }
-  }, [activePromo]);
-
-  return (
-    <div className="promo">
-      <div className="container">
-        <PromoView />
-        <PromoContent 
-          activePromo={activePromo}
-          classNames={activeContent}
-        />
-      </div>
-    </div>
-  );
+    return (
+      <PromoView 
+        updateLoading={this.updateLoading}
+        activePromo={activePromo}
+      />
+    );
+  }
 }
 
 Promo.propTypes = {
@@ -35,7 +22,7 @@ Promo.propTypes = {
 };
 
 Promo.defaultProps = {
-  activePromo: undefined
+  activePromo: {}
 };
 
 export default Promo;

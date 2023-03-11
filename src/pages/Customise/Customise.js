@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import loadingImg from '../../assets/icons/loading.gif';
+
 import '../../style/style.scss';
 
 function Customise() {

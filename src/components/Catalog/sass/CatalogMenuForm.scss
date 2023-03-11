@@ -61,6 +61,12 @@
                 outline: 1px solid #f57507;
             }
         }
+        &_info {
+            grid-column: 2;
+            grid-row: 1;
+            text-align: center;
+            color:rgb(205, 219, 2);
+        }
     }
 
 }

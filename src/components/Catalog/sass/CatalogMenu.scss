@@ -6,7 +6,6 @@
     display: flex;
 
     .sort {
-        //width: 155px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -17,10 +16,6 @@
         }
     }
     
-}
-
-.deactivated {
-    display: none;
 }
 
 .active {

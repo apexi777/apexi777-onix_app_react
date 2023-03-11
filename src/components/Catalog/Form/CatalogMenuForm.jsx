@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import CatalogMenuFormView from './CatalogMenuFormView';
 
-import './sass/CatalogMenuForm.scss';
+import '../sass/CatalogMenuForm.scss';
 
 function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
   const validationSchema = yup.object({
@@ -47,6 +47,8 @@ function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
 
   return (
     <CatalogMenuFormView 
+      clearErrors={clearErrors}
+      reset={reset}
       nameReg={nameReg}
       priceReg={priceReg}
       handleSubmit={handleSubmit}
