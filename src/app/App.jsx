@@ -32,7 +32,7 @@ class App extends Component {
               <Header 
                 onUpdateSearch={this.onUpdateSearch}
               />
-)}
+            )}
           >
             <Route index element={<Men search={search} />} />
             <Route path="women" element={<Women />} />

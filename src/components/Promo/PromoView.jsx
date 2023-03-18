@@ -26,7 +26,9 @@ class PromoView extends Component {
               durable materials exactly where they&apos;re needed most. 
             </div>
           </div>
-          <PromoContent activePromo={activePromo} />
+          <PromoContent 
+            activePromo={activePromo} 
+          />
         </div>
       </div>
     );

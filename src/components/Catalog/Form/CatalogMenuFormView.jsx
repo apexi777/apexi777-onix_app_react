@@ -60,10 +60,27 @@ class CatalogMenuFormView extends Component {
 CatalogMenuFormView.propTypes = {
   toggleMenuFilter: PropTypes.func.isRequired,
   addNewCards: PropTypes.func.isRequired,
-  nameReg: PropTypes.shape().isRequired,
-  priceReg: PropTypes.shape().isRequired,
+  nameReg: PropTypes.shape({
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    ref: PropTypes.func
+  }).isRequired,
+  priceReg: PropTypes.shape({
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    ref: PropTypes.func
+  }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  errors: PropTypes.shape().isRequired,
+  errors: PropTypes.shape({
+    name: PropTypes.shape({
+      message: PropTypes.string
+    }),
+    price: PropTypes.shape({
+      message: PropTypes.string
+    })
+  }).isRequired,
   clearErrors: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 };

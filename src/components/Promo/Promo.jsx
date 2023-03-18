@@ -7,7 +7,6 @@ import './sass/Promo.scss';
 class Promo extends Component {
   render() {
     const { activePromo } = this.props;
-
     return (
       <PromoView 
         updateLoading={this.updateLoading}

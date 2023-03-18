@@ -98,8 +98,8 @@ SliderItem.propTypes = {
   onDragEnd: PropTypes.func.isRequired,
   onDrop: PropTypes.func.isRequired,
   onDragOver: PropTypes.func.isRequired,
-  overId: PropTypes.number,
-  id: PropTypes.number.isRequired,
+  overId: PropTypes.string,
+  id: PropTypes.string.isRequired,
 };
 
 SliderItem.defaultProps = {

@@ -112,6 +112,10 @@
                 overflow: hidden;
                 // transform: rotate(-15deg);
             }
+            &_rate {
+                top: -5%;
+                right: -5%;
+            }
         }
     }
     
@@ -190,6 +194,9 @@
             &_element {
                 margin-top: 0;
                 width: 100%;
+            }
+            &_rate {
+                display: none;
             }
         }
     }

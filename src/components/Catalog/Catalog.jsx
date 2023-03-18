@@ -48,7 +48,16 @@ Catalog.propTypes = {
   onSortDataByPrice: PropTypes.func,
   onSelectModal: PropTypes.func.isRequired,
   addNewCards: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    price: PropTypes.number,
+    promo: PropTypes.string,
+    select: PropTypes.shape(),
+    visibleOnPromo: PropTypes.bool
+  })).isRequired,
   updateData: PropTypes.func.isRequired,
 };
 

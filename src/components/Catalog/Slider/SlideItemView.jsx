@@ -56,6 +56,7 @@ class SlideItemView extends Component {
           <div className="card_price">
             Price :
             {price}
+            $
           </div>
         </div>    
       </div>
@@ -71,14 +72,16 @@ SlideItemView.propTypes = {
   plus: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   style: PropTypes.string.isRequired,
-  select: PropTypes.shape().isRequired,
+  select: PropTypes.shape({
+    favorite: PropTypes.bool
+  }).isRequired,
   onDragStart: PropTypes.func.isRequired,
   onDragLeave: PropTypes.func.isRequired,
   onDragEnd: PropTypes.func.isRequired,
   onDrop: PropTypes.func.isRequired,
   onDragOver: PropTypes.func.isRequired,
-  overId: PropTypes.number,
-  id: PropTypes.number.isRequired,
+  overId: PropTypes.string,
+  id: PropTypes.string.isRequired,
   loadingImage: PropTypes.string.isRequired,
   imageOnLoaded: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,

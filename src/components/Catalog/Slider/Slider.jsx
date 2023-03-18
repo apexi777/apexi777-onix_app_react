@@ -20,33 +20,20 @@ class Slider extends Component {
     this.setState(({ currentBlock: block }));
   };
 
-  dragEndEvent = (e) => {
-    if (e.target.className === 'card card_over' && e.target.className !== 'card_image') {
-      this.setState(({ overId: null }));
-    } else if (e.target.className === 'card_image') {
-      this.setState(({ overId: null }));
-    }
+  dragEndEvent = () => {
+    this.setState(({ overId: null }));
   };
 
   dragOverEvent = (e, block) => {
-    const { currentBlock } = this.state;
     e.preventDefault();
-    if (e.target.className === 'card' && currentBlock.id !== block.id && e.target.className !== 'card_image') {
-      this.setState(({ overId: block.id }));
-    } else if (e.target.className === 'card_image' && currentBlock.id !== block.id) {
-      this.setState(({ overId: block.id }));
-    }
+    this.setState(({ overId: block.id }));
   };
 
   dropEvent = (e, block) => {
     const { currentBlock } = this.state;
     const { updateData } = this.props;
+    this.setState(({ overId: null }));
     e.preventDefault();
-    if (e.target.className === 'card card_over' && e.target.className !== 'card_image') {
-      this.setState(({ overId: null }));
-    } else if (e.target.className === 'card_image' || e.target.className === 'card_plus') {
-      this.setState(({ overId: null }));
-    }
     updateData(currentBlock, block);
   };
 
@@ -104,7 +91,7 @@ class Slider extends Component {
           draggable
           onDragStart={(e) => { this.dragStartEvent(e, card); }}
           onDragLeave={(e) => { this.dragEndEvent(e); }}
-          onDragEnd={(e) => { this.dragEndEvent(e); }}
+          onDragEnd={() => { this.dragEndEvent(); }}
           onDragOver={(e) => { this.dragOverEvent(e, card, index); }}
           onDrop={(e) => { this.dropEvent(e, card); }}
           onSelectCatalog={() => onSelectCatalog(id)}
@@ -128,7 +115,16 @@ Slider.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   updateData: PropTypes.func.isRequired,
   deletedCard: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    price: PropTypes.number,
+    promo: PropTypes.string,
+    select: PropTypes.shape(),
+    visibleOnPromo: PropTypes.bool
+  })).isRequired,
 };
 
 export default Slider;

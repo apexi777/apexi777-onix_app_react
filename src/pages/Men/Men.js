@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import BankService from '../../services/BankService';
 
 // Import components
 import Promo from '../../components/Promo/Promo';
@@ -24,7 +25,7 @@ class Men extends Component {
       data: [
         {
           image: shoes1,
-          id: 1,
+          id: '1',
           order: 1,
           name: 'Rafa Hard Court',
           visibleOnPromo: false,
@@ -34,7 +35,7 @@ class Men extends Component {
         },
         {
           image: shoes2,
-          id: 2,
+          id: '2',
           order: 2,
           name: 'Pro Hard Court',
           visibleOnPromo: false,
@@ -44,7 +45,7 @@ class Men extends Component {
         },
         {
           image: shoes3,
-          id: 3,
+          id: '3',
           order: 3,
           name: 'Vapor Cage 4 Rafa',
           visibleOnPromo: true,
@@ -55,7 +56,7 @@ class Men extends Component {
         // Temporary data
         {
           image: shoes1,
-          id: 4,
+          id: '4',
           order: 4,
           name: 'Only Hard pro',
           visibleOnPromo: false,
@@ -65,7 +66,7 @@ class Men extends Component {
         },
         {
           image: shoes2,
-          id: 5,
+          id: '5',
           order: 5,
           name: 'Super Court',
           visibleOnPromo: false,
@@ -75,7 +76,7 @@ class Men extends Component {
         },
         {
           image: shoes3,
-          id: 6,
+          id: '6',
           order: 6,
           name: 'Brain',
           visibleOnPromo: false,
@@ -87,15 +88,23 @@ class Men extends Component {
       activeModal: false,
       activePromo: {},
       select: null,
-      showData: []
+      showData: [],
+      currency: []
     };
   }
  
   componentDidMount() {
     const { data } = this.state;
+    const getData = new BankService();
 
     // Initializing the initial value of the data to be viewed
     this.setState(({ showData: data }));
+
+    getData.getValues()
+      .then((result) => {
+        this.setState(({ currency: result }));
+      })
+      .catch('error');
 
     // Select the active item for Promo component
     this.showPromo(data);
@@ -284,7 +293,9 @@ class Men extends Component {
   };
    
   render() {  
-    const { showData, activeModal, activePromo } = this.state;
+    const {
+      showData, activeModal, activePromo, currency 
+    } = this.state;
     return (
       <>  
         <Helmet>
@@ -307,7 +318,13 @@ class Men extends Component {
           addNewCards={this.addNewCards}
         />  
         {activeModal 
-          ? <Modal onSelectModal={this.onSelectModal} activePromo={activePromo} /> 
+          ? (
+            <Modal 
+              onSelectModal={this.onSelectModal} 
+              activePromo={activePromo}
+              currency={currency}
+            />
+          ) 
           : null}
       </>
     );

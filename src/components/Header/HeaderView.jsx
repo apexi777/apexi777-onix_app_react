@@ -23,13 +23,13 @@ function HeaderView({
         </div>
         <nav className="header__nav">
           <div 
-            onTouchStart={onShowNavMenu}
+            onClick={onShowNavMenu}
+            aria-hidden="true"
             className="header__nav_btn"
           />
           <ul className={`menu ${classMenu ? 'activity' : ''}`}>
             {
-            menuItems.map((element) => {
-              const { name, id } = element;
+            menuItems.map(({ name, id }) => {
               return (
                 <HeaderNav 
                   key={id}
@@ -69,7 +69,11 @@ function HeaderView({
 
 HeaderView.propTypes = {
   onValidateSearch: PropTypes.func.isRequired,
-  menuItems: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  menuItems: PropTypes.arrayOf(PropTypes.shape({
+    action: PropTypes.bool,
+    id: PropTypes.number,
+    name: PropTypes.string
+  })).isRequired,
   onShowNavMenu: PropTypes.func.isRequired,
   terminate: PropTypes.string.isRequired,
   classMenu: PropTypes.bool.isRequired

@@ -9,26 +9,21 @@ function CatalogMenu({
   const [filterMenuView, setFilterMenuView] = useState(false);
   
   const toggleMenuFilter = () => {
-    setFilterMenuView(!filterMenuView);
+    setFilterMenuView((prevState) => !prevState);
   };
     
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      {data.length !== 0
-        ? (
-          <CatalogMenuView 
-            onSelectModal={onSelectModal}
-            onSortDataByPrice={onSortDataByPrice}
-            data={data}
-            addNewCards={addNewCards}
-            toggleMenuFilter={toggleMenuFilter}
-            filterMenuView={filterMenuView}
-          />
-        )
-        : null}
-    </>
-  );
+  return data.length !== 0
+    ? (
+      <CatalogMenuView 
+        onSelectModal={onSelectModal}
+        onSortDataByPrice={onSortDataByPrice}
+        data={data}
+        addNewCards={addNewCards}
+        toggleMenuFilter={toggleMenuFilter}
+        filterMenuView={filterMenuView}
+      />
+    )
+    : null;
 }
 
 CatalogMenu.propTypes = {

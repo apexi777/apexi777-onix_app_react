@@ -1,5 +1,9 @@
 @import "../../../style/mixins.scss";
 
+.block {
+  
+}
+
 .modal {
     z-index: 5;
     position: fixed;
@@ -66,7 +70,9 @@
     &_price {
         grid-column-start: 2;
         grid-row-start: 2;
-        align-self: end;
+        align-self: center;
+        &_currency {
+        }
         &_sum {
             margin: 0 0 10px 30px;
             font-weight: 700;
