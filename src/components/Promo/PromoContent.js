@@ -14,7 +14,7 @@ function PromoContent({ activePromo }) {
           {' '}
         </p>
       </div>
-      <img className="promo_showing_element" src={promo} alt="promo_image" />
+      <img className="promo_showing_element" src={`${promo}`} alt="promo_image" />
     </div>
   );
 }

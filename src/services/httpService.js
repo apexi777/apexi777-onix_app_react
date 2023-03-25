@@ -1,12 +1,18 @@
-class BankService {
+class HttpService {
   usaCurrency = 'Долар США';
 
   euroCurrency = 'Євро';
 
-  getResource = async (url) => {
+  getResource = async (url, method, body) => {
+    const headers = { 'Content-Type': 'application/json' };
     try {
-      const res = await fetch(url);
-
+      let res;
+      if (method === 'POST') {
+        res = await fetch(url, { method, body, headers });
+      } else {
+        res = await fetch(url, { method, body });
+      }
+      
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status${res.status}`);
       }
@@ -17,9 +23,17 @@ class BankService {
     }
   };
 
-  getValues = async () => {
-    const res = await this.getResource('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
-    return this.transformData(res);
+  getValues = async (
+    url, 
+    custom = false,
+    method = 'GET', 
+    body = null
+  ) => {
+    const res = await this.getResource(url, method, body);
+    if (!custom) {
+      return this.transformData(res);
+    } 
+    return res;
   };
 
   transformData = (data) => {
@@ -39,4 +53,4 @@ class BankService {
   };
 }
 
-export default BankService;
+export default HttpService;

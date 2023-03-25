@@ -32,16 +32,14 @@ function Modal({ activePromo, onSelectModal, currency }) {
   };
 
   // Установка значения в соответствии с выбраной валютой
-  const checkCurrencyPrice = (name) => {
-    const usdRate = currency.filter((item) => item.cc === 'USD')[0].rate;
-    currency.forEach((element) => {
-      const { cc, rate } = element;
-      if (name === cc && name !== 'USD') {
-        setPrice((Math.round((activePromo.price / rate) * usdRate)) * count);
-      } else if (name === 'USD') {
-        setPrice(activePromo.price * count);
-      }
-    });
+  const checkCurrencyPrice = (name = 'USD') => {
+    const usdRate = currency.find((item) => item.cc === 'USD').rate;
+    const desiredName = currency.find((item) => item.cc === name);
+    if (desiredName.cc === 'USD') {
+      setPrice(activePromo.price * count);
+    } else {
+      setPrice((Math.round((activePromo.price / desiredName.rate) * usdRate)) * count);
+    }
   };
 
   // Отработка по клику на выбраный элемент в списке валют

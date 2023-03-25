@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "image": "../assets/img/rafa-hard-court.png",
+      "id": "1",
+      "order": 1,
+      "name": "Rafa Hard Court",
+      "visibleOnPromo": false,
+      "promo": "../assets/img/promo/promo_green_shoes_3.png",
+      "price": 75,
+      "select": {}
+    },
+    {
+      "image": "../assets/img/pro-hard-court.png",
+      "id": "2",
+      "order": 2,
+      "name": "Pro Hard Court",
+      "visibleOnPromo": false,
+      "promo": "../assets/img/promo/promo_green_shoes_2.png",
+      "price": 82,
+      "select": {}
+    },
+    {
+      "image": "../assets/img/vapor-cage-4-rafa.png",
+      "id": "3",
+      "order": 3,
+      "name": "Vapor Cage 4 Rafa",
+      "visibleOnPromo": true,
+      "promo": "../assets/img/promo/promo_green_shoes.png",
+      "price": 60,
+      "select": {}
+    },
+    {
+      "image": "../assets/img/rafa-hard-court.png",
+      "id": "4",
+      "order": 4,
+      "name": "Only Hard pro",
+      "visibleOnPromo": false,
+      "promo": "../assets/img/promo/promo_green_shoes_2.png",
+      "price": 39,
+      "select": {}
+    },
+    {
+      "image": "../assets/img/pro-hard-court.png",
+      "id": "5",
+      "order": 5,
+      "name": "Super Court",
+      "visibleOnPromo": false,
+      "promo": "../assets/img/promo/promo_green_shoes_3.png",
+      "price": 100,
+      "select": {}
+    },
+    {
+      "image": "../assets/img/vapor-cage-4-rafa.png",
+      "id": "6",
+      "order": 6,
+      "name": "Brain",
+      "visibleOnPromo": false,
+      "promo": "../assets/img/promo/promo_green_shoes.png",
+      "price": 70,
+      "select": {}
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import BankService from '../../services/BankService';
+import HttpService from '../../services/httpService';
 
 // Import components
 import Promo from '../../components/Promo/Promo';
@@ -10,101 +10,37 @@ import Sorting from '../../components/Sorting/Sorting';
 import Catalog from '../../components/Catalog/Catalog';
 import Modal from '../../components/Modal/Modal';
 
-// Import content by data object
-import shoes1 from '../../assets/img/rafa-hard-court.png';
-import shoes2 from '../../assets/img/pro-hard-court.png';
-import shoes3 from '../../assets/img/vapor-cage-4-rafa.png';
-import promoShoes1 from '../../assets/img/promo/promo_green_shoes_3.png';
-import promoShoes2 from '../../assets/img/promo/promo_green_shoes_2.png';
-import promoShoes3 from '../../assets/img/promo/promo_green_shoes.png';
+import { 
+  PRICE_HIGH_TO_LOW, 
+  PRICE_LOW_TO_HIGH,
+  PRICE_FEATURED, 
+  LABEL_LOW_PRICE,
+  LABEL_HIGH_PRICE
+} from '../../constans/translates';
 
 class Men extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          image: shoes1,
-          id: '1',
-          order: 1,
-          name: 'Rafa Hard Court',
-          visibleOnPromo: false,
-          promo: promoShoes1,
-          price: 75,
-          select: {} 
-        },
-        {
-          image: shoes2,
-          id: '2',
-          order: 2,
-          name: 'Pro Hard Court',
-          visibleOnPromo: false,
-          promo: promoShoes2,
-          price: 82,
-          select: {} 
-        },
-        {
-          image: shoes3,
-          id: '3',
-          order: 3,
-          name: 'Vapor Cage 4 Rafa',
-          visibleOnPromo: true,
-          promo: promoShoes3,
-          price: 60,
-          select: {} 
-        },
-        // Temporary data
-        {
-          image: shoes1,
-          id: '4',
-          order: 4,
-          name: 'Only Hard pro',
-          visibleOnPromo: false,
-          promo: promoShoes1,
-          price: 39,
-          select: {} 
-        },
-        {
-          image: shoes2,
-          id: '5',
-          order: 5,
-          name: 'Super Court',
-          visibleOnPromo: false,
-          promo: promoShoes2,
-          price: 100,
-          select: {} 
-        },
-        {
-          image: shoes3,
-          id: '6',
-          order: 6,
-          name: 'Brain',
-          visibleOnPromo: false,
-          promo: promoShoes3,
-          price: 70,
-          select: {} 
-        }
-      ],
+      data: [],
       activeModal: false,
       activePromo: {},
       select: null,
-      showData: [],
       currency: []
     };
   }
  
   componentDidMount() {
     const { data } = this.state;
-    const getData = new BankService();
+    const getData = new HttpService();
 
-    // Initializing the initial value of the data to be viewed
-    this.setState(({ showData: data }));
-
-    getData.getValues()
+    getData.getValues('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
       .then((result) => {
         this.setState(({ currency: result }));
       })
-      .catch('error');
+      .catch((error) => new Error(error));
+    
+    this.setDataByRequest();
 
     // Select the active item for Promo component
     this.showPromo(data);
@@ -113,49 +49,56 @@ class Men extends Component {
   // Update data in case of input in the search
   componentDidUpdate(prevProps, prevState) {
     const { search } = this.props;
-    const { select, showData, data } = this.state;
+    const { select, data } = this.state;
 
     // If the value in the search string has changed, the data is validated
     if (prevProps.search !== search) {
-      this.searchCards(showData, search);
+      this.searchCards(data, search);
     }
 
     // If the user has selected a value in the sort menu, the object is validated
     if (prevState.select !== select) {
-      let temporaryValue = showData.slice(0);
-      if (showData.length === 0) {
+      let temporaryValue = data.slice(0);
+      if (data.length === 0) {
+        this.setDataByRequest();
         temporaryValue = data.slice(0);
       }
-      temporaryValue = this.onSortDataByPrice(temporaryValue, select);
-      this.setState(({ showData: temporaryValue }));
+      temporaryValue = this.onSortDataByPrice(data, select);
+      this.setState(({ data: temporaryValue }));
     }
 
-    if (prevState.showData !== showData) {
-      this.showPromo(showData);
+    if (prevState.data !== data) {
+      this.showPromo(data);
     }
   }
 
+  setDataByRequest = () => {
+    const getData = new HttpService();
+    getData.getValues('http://localhost:3001/data', true)
+      .then((result) => { this.setState(({ data: result })); });
+  };
+
   // Add new object to data object
   addNewCards = (name, price) => {
-    const { showData } = this.state;
+    const getData = new HttpService();
+    const { data } = this.state;
     if (typeof (name) === 'string' || typeof (price) === 'number') {
       const newCards = {
-        image: shoes3,
+        image: '',
         name,
-        order: showData.length + 1,
+        order: data.length + 1,
         visibleOnPromo: false,
-        promo: promoShoes3,
+        promo: `${`${process.env.PUBLIC_URL}/assets/img/promo/promo_green_shoes.png`}`,
         id: uuidv4(),
         price,
         select: {}
       };
-      // eslint-disable-next-line no-shadow
-      this.setState(({ showData }) => {
-        const newArr = [...showData, newCards];
-        return {
-          showData: newArr
-        };
-      });
+      getData.getValues('http://localhost:3001/data', true, 'POST', JSON.stringify(newCards))
+        // eslint-disable-next-line no-console
+        .then((res) => console.log(res, 'Отправка успешна'));
+      this.setState(({ data: prevData }) => ({
+        data: [...prevData, newCards]
+      }));
     }
   };
 
@@ -167,8 +110,8 @@ class Men extends Component {
   // Add/remove from favorites
   toggleFavorite = (id) => {
     const selected = { favorite: true };
-    this.setState(({ showData }) => ({    
-      showData: showData.map((elem) => {
+    this.setState(({ data }) => ({    
+      data: data.map((elem) => {
         if (elem.id === id) {
           if (!elem.select.favorite) {
             return { ...elem, ...{ select: selected } };
@@ -182,8 +125,8 @@ class Men extends Component {
 
   // Changing the state on the selection of a catalog item
   onSelectCatalog = (id) => {
-    this.setState(({ showData }) => ({
-      showData: showData.map((elem) => ({
+    this.setState(({ data }) => ({
+      data: data.map((elem) => ({
         ...elem, 
         visibleOnPromo: elem.id === id
       }))
@@ -192,8 +135,8 @@ class Men extends Component {
 
   // Remove selected object by id from object data
   deletedCard = (id) => {
-    this.setState(({ showData }) => ({
-      showData: showData.filter((item) => item.id !== id)
+    this.setState(({ data }) => ({
+      data: data.filter((item) => item.id !== id)
     }));
   };
 
@@ -205,18 +148,18 @@ class Men extends Component {
 
   // Activation of the selected element in the section
   showPromo = (data) => {
-    const temporaryValue = data.find((item) => { return item.visibleOnPromo; });
+    const temporaryValue = data.find((item) => item.visibleOnPromo);
     this.setState(({ activePromo: temporaryValue }));
   };
 
   // Sort data object by price and featured
   onSortDataByPrice = (data, text) => {
     switch (text) {
-      case 'Price: Low-High':
-        return this.bubbleSort(data, 'low');
-      case 'Price: High-Low': 
-        return this.bubbleSort(data, 'high');
-      case 'Featured': {
+      case PRICE_LOW_TO_HIGH:
+        return this.bubbleSort(data, LABEL_LOW_PRICE);
+      case PRICE_HIGH_TO_LOW: 
+        return this.bubbleSort(data, LABEL_HIGH_PRICE);
+      case PRICE_FEATURED: {
         let secondaryData = [];
         const count = data.reduce((result, value) => result + (JSON.stringify(value.select) !== '{}'), 0);
         if (count !== 0) {
@@ -231,25 +174,28 @@ class Men extends Component {
     }
   };
 
-  // Sort array by price value from lowest to highest
   bubbleSort = (array, text) => {
     const secondaryArray = array.slice(0);
+    let count = 0;
     for (let i = 0; i < array.length; i += 1) {
       for (let a = 0; a < secondaryArray.length - 1; a += 1) {
-        if (text === 'low') {
+        if (text === LABEL_LOW_PRICE) {
           if (secondaryArray[a].price > secondaryArray[a + 1].price) {
-            const secondaryValue = secondaryArray[a].price;
-            secondaryArray[a].price = secondaryArray[a + 1].price;
-            secondaryArray[a + 1].price = secondaryValue;
+            const secondaryValue = secondaryArray[a];
+            secondaryArray[a] = secondaryArray[a + 1];
+            secondaryArray[a + 1] = secondaryValue;
           }
         } else if (secondaryArray[a].price < secondaryArray[a + 1].price) {
-          const secondaryValue = secondaryArray[a].price;
-          secondaryArray[a].price = secondaryArray[a + 1].price;
-          secondaryArray[a + 1].price = secondaryValue;
+          const secondaryValue = secondaryArray[a];
+          secondaryArray[a] = secondaryArray[a + 1];
+          secondaryArray[a + 1] = secondaryValue;
         }
       }
     }
-    return secondaryArray;
+    return secondaryArray.map((elem) => {
+      count += 1;
+      return { ...elem, order: count };
+    });
   };
 
   // Sort by search
@@ -257,14 +203,13 @@ class Men extends Component {
     const { data } = this.state;
     let secondaryData;
     if (term.length === 0) {
+      this.setDataByRequest();
       secondaryData = data;
     } else {
-      secondaryData = array.filter((item) => {
-        return item.name.toLowerCase().includes(term.toLowerCase());
-      });
+      secondaryData = data.filter((item) => item.name.toLowerCase().includes(term.toLowerCase()));
     }
     secondaryData = this.showVisible(secondaryData);
-    this.setState(({ showData: secondaryData })); 
+    this.setState(({ data: secondaryData })); 
   }; 
   
   // Returns a data object with one active element
@@ -279,22 +224,24 @@ class Men extends Component {
   };
 
   updateData = (inDragBlock, inDragOverBlock) => {
-    this.setState(({ showData }) => ({
-      showData: showData.map((card) => {
-        if (card.id === inDragOverBlock.id) {
-          return { ...card, order: inDragBlock.order };
-        }
-        if (card.id === inDragBlock.id) {
-          return { ...card, order: inDragOverBlock.order };
-        }
-        return card;
-      })
-    }));
+    if (inDragBlock !== inDragOverBlock) {
+      this.setState(({ data }) => ({
+        data: data.map((card) => {
+          if (card.id === inDragOverBlock.id) {
+            return { ...card, order: inDragBlock.order };
+          }
+          if (card.id === inDragBlock.id) {
+            return { ...card, order: inDragOverBlock.order };
+          }
+          return card;
+        })
+      }));
+    }
   };
    
   render() {  
     const {
-      showData, activeModal, activePromo, currency 
+      data, activeModal, activePromo, currency 
     } = this.state;
     return (
       <>  
@@ -311,7 +258,7 @@ class Men extends Component {
         <Catalog 
           updateData={this.updateData}
           onSelectModal={this.onSelectModal} 
-          data={showData} 
+          data={data} 
           onSelectCatalog={this.onSelectCatalog}
           deletedCard={this.deletedCard}
           toggleFavorite={this.toggleFavorite}

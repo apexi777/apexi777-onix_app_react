@@ -11,18 +11,16 @@ class Currency extends Component {
         {
           currencys.map(({
             name, id, select 
-          }) => {
-            return (
-              <button 
-                type="button" 
-                className={`currency_nav${select ? ' select' : ''}`}
-                key={id}
-                onClick={() => onSelectCurrency(id, name)}
-              >
-                {name}
-              </button>
-            );
-          })
+          }) => (
+            <button 
+              type="button" 
+              className={`currency_nav${select ? ' select' : ''}`}
+              key={id}
+              onClick={() => onSelectCurrency(id, name)}
+            >
+              {name}
+            </button>
+          ))
         }
       </div>
     );

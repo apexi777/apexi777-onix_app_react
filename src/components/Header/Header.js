@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import withHeaderView from './WithHeaderView';
 import HeaderView from './HeaderView';
+
+const WithHeaderView = withHeaderView(HeaderView);
 
 function Header({ onUpdateSearch }) {
   const [menuItems] = useState([
@@ -10,8 +13,6 @@ function Header({ onUpdateSearch }) {
     { name: 'Kids', action: false, id: 103 },
     { name: 'Customise', action: false, id: 104 }
   ]);
-
-  const [classMenu, setClassMenu] = useState(false);
 
   // Intermediate values search data
   const [terminate, setTerminate] = useState('');
@@ -23,19 +24,12 @@ function Header({ onUpdateSearch }) {
     onUpdateSearch(value);
   };
 
-  const onShowNavMenu = () => {
-    setClassMenu(!classMenu);
-  };
-
   return (
-    <HeaderView
+    <WithHeaderView
       menuItems={menuItems}
-      onShowNavMenu={onShowNavMenu}
       onValidateSearch={onValidateSearch}
       terminate={terminate}
-      classMenu={classMenu}
-    />
-      
+    />    
   );
 }
 
