@@ -18,6 +18,8 @@ import {
   LABEL_HIGH_PRICE
 } from '../../constans/translates';
 
+import MyContext from '../../context';
+
 class Men extends Component {
   constructor(props) {
     super(props);
@@ -249,9 +251,9 @@ class Men extends Component {
           <meta name="description" content="Nike - Men Page" />
           <title>Nike - Men Page</title>
         </Helmet>
-        <Promo 
-          activePromo={activePromo}
-        />
+        <MyContext.Provider value={activePromo}>
+          <Promo />
+        </MyContext.Provider>
         <Sorting
           setSelectState={this.setSelectState}
         />

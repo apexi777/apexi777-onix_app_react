@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import PromoContent from './PromoContent';
 
 class PromoView extends Component {
   render() {
-    const { activePromo } = this.props;
+    const { updateLoading, loaded } = this.props;
     return (
       <div className="promo">
         <div className="container">
@@ -27,7 +28,8 @@ class PromoView extends Component {
             </div>
           </div>
           <PromoContent 
-            activePromo={activePromo} 
+            loaded={loaded}
+            updateLoading={updateLoading}
           />
         </div>
       </div>
@@ -36,11 +38,8 @@ class PromoView extends Component {
 }
 
 PromoView.propTypes = {
-  activePromo: PropTypes.shape(),
-};
-
-PromoView.defaultProps = {
-  activePromo: {}
+  updateLoading: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired
 };
 
 export default PromoView;
