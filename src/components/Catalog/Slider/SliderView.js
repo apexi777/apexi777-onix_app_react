@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-import { 
-  SLIDE_ACTIVE_CENTER,
-  SLIDE_ACTIVE_LEFT,
-  SLIDE_ACTIVE_RIGHT,
-  SLIDE_NOACTIVE_LEFT,
-  SLIDE_NOACTIVE_RIGHT,
-  SLIDE_CHOICE
-} from '../../../constans/translates';
+// import { 
+//   SLIDE_ACTIVE_CENTER,
+//   SLIDE_ACTIVE_LEFT,
+//   SLIDE_ACTIVE_RIGHT,
+//   SLIDE_NOACTIVE_LEFT,
+//   SLIDE_NOACTIVE_RIGHT,
+//   SLIDE_CHOICE
+// } from '../../../constans/translates';
 
 import SliderItem from './SliderItem';
 
@@ -23,7 +23,8 @@ function SliderView({
   dragStartEvent, 
   dragEndEvent, 
   dropEvent, 
-  dragOverEvent
+  dragOverEvent,
+  updateStyleByCard
 }) {
   return (
     <div className="block_card">
@@ -38,15 +39,7 @@ function SliderView({
           const {
             id, name, price, visibleOnPromo, image, select 
           } = card;
-          let style;
-          if (index === count) style = SLIDE_ACTIVE_LEFT;
-          else if (index === count + 1) style = SLIDE_ACTIVE_CENTER;
-          else if (index === count + 2) style = SLIDE_ACTIVE_RIGHT;
-          else if (index > count && index !== count + 1 && index !== count + 2) style = SLIDE_NOACTIVE_RIGHT;
-          else if (index < count) style = SLIDE_NOACTIVE_LEFT;
-          if (visibleOnPromo) {
-            style += SLIDE_CHOICE;
-          }
+          const style = updateStyleByCard(index, count, visibleOnPromo);
           return (
             <SliderItem 
               key={id}
@@ -77,6 +70,7 @@ function SliderView({
 
 SliderView.propTypes = {
   onPressButtonSlide: PropTypes.func.isRequired,
+  updateStyleByCard: PropTypes.func.isRequired,
   onSelectCatalog: PropTypes.func.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   deletedCard: PropTypes.func.isRequired,

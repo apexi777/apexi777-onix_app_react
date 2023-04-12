@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { CLICK_NEXT_BUTTON, CLICK_PREVIOUS_BUTTON } from '../../../constans/translates';
+import { 
+  CLICK_NEXT_BUTTON, 
+  CLICK_PREVIOUS_BUTTON,
+  SLIDE_ACTIVE_CENTER,
+  SLIDE_ACTIVE_LEFT,
+  SLIDE_ACTIVE_RIGHT,
+  SLIDE_NOACTIVE_LEFT,
+  SLIDE_NOACTIVE_RIGHT,
+  SLIDE_CHOICE
+} from '../../../constans/translates';
 import SliderView from './SliderView';
 
 import '../sass/Slider.scss';
@@ -12,6 +21,19 @@ function Slider({
   const [overId, setOverId] = useState(null);
   const [currentBlock, setCurrentBlock] = useState(null);
   const [count, setCount] = useState(0);
+
+  const updateStyleByCard = useCallback((index, counted, visible) => {
+    let style;
+    if (index === counted) style = SLIDE_ACTIVE_LEFT;
+    else if (index === counted + 1) style = SLIDE_ACTIVE_CENTER;
+    else if (index === counted + 2) style = SLIDE_ACTIVE_RIGHT;
+    else if (index > counted && index !== counted + 1 && index !== counted + 2) style = SLIDE_NOACTIVE_RIGHT;
+    else if (index < counted) style = SLIDE_NOACTIVE_LEFT;
+    if (visible) {
+      style += SLIDE_CHOICE;
+    }
+    return style;
+  });
 
   const dragStartEvent = (block) => {
     setCurrentBlock(block);
@@ -66,6 +88,7 @@ function Slider({
       dragEndEvent={dragEndEvent} 
       dropEvent={dropEvent} 
       dragOverEvent={dragOverEvent}
+      updateStyleByCard={updateStyleByCard}
     />
   );
 }

@@ -29,14 +29,12 @@ function HeaderView({
           />
           <ul className={`menu ${classMenu ? 'activity' : ''}`}>
             {
-            menuItems.map(({ name, id }) => {
-              return (
-                <HeaderNav 
-                  key={id}
-                  name={name}
-                />
-              );
-            })
+            menuItems.map(({ name, id }) => (
+              <HeaderNav 
+                key={id}
+                name={name}
+              />
+            ))
             }
             <form className="menu_search" action="#">
               <input 
