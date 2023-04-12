@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { 
@@ -12,71 +11,68 @@ import {
 
 import SliderItem from './SliderItem';
 
-class SliderView extends Component {
-  render() {
-    const {
-      onPressButtonSlide, 
-      data, 
-      count, 
-      sortBlock,
-      overId, 
-      onSelectCatalog, 
-      toggleFavorite, 
-      deletedCard,
-      dragStartEvent, 
-      dragEndEvent, 
-      dropEvent, 
-      dragOverEvent
-    } = this.props;
-    return (
-      <div className="block_card">
-        <div 
-          aria-hidden="true"
-          onClick={onPressButtonSlide}
-          className="button button_left" 
-          id="previous"
-        />
-        <div className="cards_menu">
-          {data.sort(sortBlock).map((card, index) => {
-            const {
-              id, name, price, visibleOnPromo, image, select 
-            } = card;
-            let style;
-            if (index === count) style = SLIDE_ACTIVE_LEFT;
-            else if (index === count + 1) style = SLIDE_ACTIVE_CENTER;
-            else if (index === count + 2) style = SLIDE_ACTIVE_RIGHT;
-            else if (index > count && index !== count + 1 && index !== count + 2) style = SLIDE_NOACTIVE_RIGHT;
-            else if (index < count) style = SLIDE_NOACTIVE_LEFT;
-            if (visibleOnPromo) {
-              style += SLIDE_CHOICE;
-            }
-            return (
-              <SliderItem 
-                key={id}
-                id={id}
-                name={name}
-                image={image}
-                price={price}
-                style={style}
-                overId={overId}
-                select={select}
-                draggable
-                onDragStart={(e) => { dragStartEvent(e, card); }}
-                onDragLeave={(e) => { dragEndEvent(e); }}
-                onDragEnd={() => { dragEndEvent(); }}
-                onDragOver={(e) => { dragOverEvent(e, card, index); }}
-                onDrop={(e) => { dropEvent(e, card); }}
-                onSelectCatalog={() => onSelectCatalog(id)}
-                toggleFavorite={() => toggleFavorite(id)}
-                deletedCard={() => { deletedCard(id); }}
-              />
-            );
-          })}
-        </div>
-        <div aria-hidden="true" onClick={onPressButtonSlide} className="button button_right" id="next" />
+function SliderView({
+  onPressButtonSlide, 
+  data, 
+  count, 
+  sortBlock,
+  overId, 
+  onSelectCatalog, 
+  toggleFavorite, 
+  deletedCard,
+  dragStartEvent, 
+  dragEndEvent, 
+  dropEvent, 
+  dragOverEvent
+}) {
+  return (
+    <div className="block_card">
+      <div 
+        aria-hidden="true"
+        onClick={onPressButtonSlide}
+        className="button button_left" 
+        id="previous"
+      />
+      <div className="cards_menu">
+        {data.sort(sortBlock).map((card, index) => {
+          const {
+            id, name, price, visibleOnPromo, image, select 
+          } = card;
+          let style;
+          if (index === count) style = SLIDE_ACTIVE_LEFT;
+          else if (index === count + 1) style = SLIDE_ACTIVE_CENTER;
+          else if (index === count + 2) style = SLIDE_ACTIVE_RIGHT;
+          else if (index > count && index !== count + 1 && index !== count + 2) style = SLIDE_NOACTIVE_RIGHT;
+          else if (index < count) style = SLIDE_NOACTIVE_LEFT;
+          if (visibleOnPromo) {
+            style += SLIDE_CHOICE;
+          }
+          return (
+            <SliderItem 
+              key={id}
+              id={id}
+              name={name}
+              image={image}
+              price={price}
+              style={style}
+              overId={overId}
+              select={select}
+              draggable
+              onDragStart={(e) => { dragStartEvent(e, card); }}
+              onDragLeave={(e) => { dragEndEvent(e); }}
+              onDragEnd={() => { dragEndEvent(); }}
+              onDragOver={(e) => { dragOverEvent(e, card, index); }}
+              onDrop={(e) => { dropEvent(e, card); }}
+              onSelectCatalog={() => onSelectCatalog(id)}
+              toggleFavorite={() => toggleFavorite(id)}
+              deletedCard={() => { deletedCard(id); }}
+            />
+          );
+        })}
       </div>
-    );
-  }
+      <div aria-hidden="true" onClick={onPressButtonSlide} className="button button_right" id="next" />
+    </div>
+  );
 }
 
 SliderView.propTypes = {

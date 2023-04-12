@@ -1,29 +1,20 @@
-import { Component } from 'react';
-
+import { useState } from 'react';
 import PromoView from './PromoView';
 import './sass/Promo.scss';
 
-class Promo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false
-    };
-  }
+function Promo() {
+  const [loaded, setLoaded] = useState(false);
 
-  updateLoading = () => {
-    this.setState(({ loaded: true }));
+  const updateLoading = () => {
+    setLoaded(true);
   };
 
-  render() {
-    const { loaded } = this.state;
-    return (
-      <PromoView 
-        loaded={loaded}
-        updateLoading={this.updateLoading}
-      />
-    );
-  }
+  return (
+    <PromoView 
+      loaded={loaded}
+      updateLoading={updateLoading}
+    />
+  );
 }
 
 export default Promo;

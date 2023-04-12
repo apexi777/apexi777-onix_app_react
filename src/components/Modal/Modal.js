@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, useCallback 
+} from 'react';
 import PropTypes from 'prop-types';
 
 import ModalView from './ModalView';
@@ -20,7 +22,7 @@ function Modal({ activePromo, onSelectModal, currency }) {
   ]);
 
   // Отработка по нажатию на кнопки добавление/удаление колличества пар обуви
-  const addCount = (e) => {
+  const addCount = useCallback((e) => {
     const attribute = e.target.getAttribute('data');
     if (attribute === 'data-rm') {
       if (count > 1) { 
@@ -29,7 +31,7 @@ function Modal({ activePromo, onSelectModal, currency }) {
     } else if (attribute === 'data-add') {
       setCount((prevCount) => prevCount + 1);
     }
-  };
+  }, [count]);
 
   // Установка значения в соответствии с выбраной валютой
   const checkCurrencyPrice = (name = 'USD') => {
@@ -43,14 +45,14 @@ function Modal({ activePromo, onSelectModal, currency }) {
   };
 
   // Отработка по клику на выбраный элемент в списке валют
-  const onSelectCurrency = (id) => {
+  const onSelectCurrency = useCallback((id) => {
     const prevSelect = currencys.filter((elem) => elem.select)[0];
     if (prevSelect.id !== id) {
-      setCurrencys(currencys.map((item) => {
+      setCurrencys((prevCurrencys) => prevCurrencys.map((item) => {
         return { ...item, select: (item.id === id) };
       }));
     }
-  };
+  }, [currencys]);
 
   // Установка символа выбраной валюты
   const getActiveCharacter = () => {

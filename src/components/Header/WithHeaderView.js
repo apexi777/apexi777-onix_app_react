@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 function withHeaderView(BaseComponent) {
@@ -7,9 +7,9 @@ function withHeaderView(BaseComponent) {
   }) {
     const [classMenu, setClassMenu] = useState(false);
 
-    const onShowNavMenu = () => {
+    const onShowNavMenu = useCallback(() => {
       setClassMenu((prevClassMenu) => !prevClassMenu);
-    };
+    }, [classMenu]);
     return (
       <BaseComponent
         menuItems={menuItems}

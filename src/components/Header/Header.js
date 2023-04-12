@@ -1,10 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import withHeaderView from './WithHeaderView';
 import HeaderView from './HeaderView';
-
-const WithHeaderView = withHeaderView(HeaderView);
 
 function Header({ onUpdateSearch }) {
   const [menuItems] = useState([
@@ -18,14 +15,14 @@ function Header({ onUpdateSearch }) {
   const [terminate, setTerminate] = useState('');
 
   // Sending the search data to the parent component
-  const onValidateSearch = (e) => {
+  const onValidateSearch = useCallback((e) => {
     const value = e.target.value.replace(/[^A-Za-z0-9]/, '');
     setTerminate(value);
     onUpdateSearch(value);
-  };
+  }, [terminate]);
 
   return (
-    <WithHeaderView
+    <HeaderView
       menuItems={menuItems}
       onValidateSearch={onValidateSearch}
       terminate={terminate}

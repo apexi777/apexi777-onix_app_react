@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CatalogMenuView from './CatalogMenuView';
@@ -8,9 +8,9 @@ function CatalogMenu({
 }) {
   const [filterMenuView, setFilterMenuView] = useState(false);
   
-  const toggleMenuFilter = () => {
+  const toggleMenuFilter = useCallback(() => {
     setFilterMenuView((prevState) => !prevState);
-  };
+  }, [filterMenuView]);
     
   return data.length !== 0
     ? (

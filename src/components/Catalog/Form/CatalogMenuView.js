@@ -1,30 +1,26 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import CatalogMenuForm from './CatalogMenuForm';
 
 import '../sass/CatalogMenu.scss';
 
-class CatalogMenuView extends Component {
-  render() {
-    const {
-      onSelectModal, onSortDataByPrice, data, addNewCards, filterMenuView, toggleMenuFilter 
-    } = this.props;
-    return (
-      <div className={`buttons ${filterMenuView ? 'active' : ''}`}>
-        <button type="button" onClick={(e) => onSelectModal(e)} className="slider_btn">shop now</button> 
-        <button type="button" onClick={toggleMenuFilter} className="slider_btn sort">
-          <p className="sort_title">Add new Card</p>
-        </button>
-        <CatalogMenuForm 
-          data={data}
-          onSortDataByPrice={onSortDataByPrice}
-          toggleMenuFilter={toggleMenuFilter}
-          addNewCards={addNewCards}
-        />
-      </div>
-    );
-  }
+function CatalogMenuView({
+  onSelectModal, onSortDataByPrice, data, addNewCards, filterMenuView, toggleMenuFilter 
+}) {
+  return (
+    <div className={`buttons ${filterMenuView ? 'active' : ''}`}>
+      <button type="button" onClick={(e) => onSelectModal(e)} className="slider_btn">shop now</button> 
+      <button type="button" onClick={toggleMenuFilter} className="slider_btn sort">
+        <p className="sort_title">Add new Card</p>
+      </button>
+      <CatalogMenuForm 
+        data={data}
+        onSortDataByPrice={onSortDataByPrice}
+        toggleMenuFilter={toggleMenuFilter}
+        addNewCards={addNewCards}
+      />
+    </div>
+  );
 }
 
 CatalogMenuView.propTypes = {

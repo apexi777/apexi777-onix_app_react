@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import SlideItemView from './SlideItemView';
@@ -7,81 +7,61 @@ import plus from '../../../assets/img/plus.png';
 import loadingImage from '../../../assets/spinner.svg';
 import errorImage from '../../../assets/error_image.png';
 
-class SliderItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      src: '',
-      error: false,
-      loaded: false
-    };
-  }
+function SliderItem({
+  name,
+  price,
+  select,
+  style, 
+  toggleFavorite,
+  deletedCard, 
+  onDragStart, 
+  onDragLeave, 
+  onSelectCatalog, 
+  onDragEnd, 
+  onDrop, 
+  overId,
+  image,
+  id,
+  onDragOver 
+}) {
+  const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  componentDidMount() {
-    const { image } = this.props;
-    this.setState({ src: image });
-  }
-
-  onError = () => {
-    const { error } = this.state;
+  const onError = () => {
     if (!error) {
-      this.setState({
-        src: errorImage,
-        error: true,
-        loaded: true
-      });
+      setError(true);
+      setLoaded(true);
     }
   };
 
-  imageOnLoaded = () => {
-    this.setState(({ loaded: true }));
+  const imageOnLoaded = () => {
+    setLoaded(true);
   };
 
-  render() {
-    const {
-      name,
-      price,
-      select,
-      style, 
-      toggleFavorite,
-      deletedCard, 
-      onDragStart, 
-      onDragLeave, 
-      onSelectCatalog, 
-      onDragEnd, 
-      onDrop, 
-      overId,
-      id,
-      onDragOver 
-    } = this.props;
-
-    const { src, loaded } = this.state;
-
-    return (
-      <SlideItemView 
-        name={name}
-        price={price}
-        select={select}
-        style={style}
-        toggleFavorite={toggleFavorite}
-        deletedCard={deletedCard}
-        onDragStart={onDragStart}
-        onDragLeave={onDragLeave}
-        onSelectCatalog={onSelectCatalog}
-        onDragEnd={onDragEnd}
-        onDrop={onDrop}
-        overId={overId}
-        id={id}
-        onDragOver={onDragOver}
-        loaded={loaded}
-        loadingImage={loadingImage}
-        plus={plus}
-        src={src}
-        onError={this.onError}
-        imageOnLoaded={this.imageOnLoaded}
-      />
-    );
-  }
+  return (
+    <SlideItemView 
+      name={name}
+      price={price}
+      select={select}
+      style={style}
+      toggleFavorite={toggleFavorite}
+      deletedCard={deletedCard}
+      onDragStart={onDragStart}
+      onDragLeave={onDragLeave}
+      onSelectCatalog={onSelectCatalog}
+      onDragEnd={onDragEnd}
+      onDrop={onDrop}
+      overId={overId}
+      id={id}
+      onDragOver={onDragOver}
+      loaded={loaded}
+      loadingImage={loadingImage}
+      plus={plus}
+      src={error ? errorImage : image}
+      onError={onError}
+      imageOnLoaded={imageOnLoaded}
+    />
+  );
 }
 
 SliderItem.propTypes = {
