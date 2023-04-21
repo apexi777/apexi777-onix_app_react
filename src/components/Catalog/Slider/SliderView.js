@@ -51,7 +51,7 @@ function SliderView({
               overId={overId}
               select={select}
               draggable
-              onDragStart={(e) => { dragStartEvent(e, card); }}
+              onDragStart={() => { dragStartEvent(card); }}
               onDragLeave={(e) => { dragEndEvent(e); }}
               onDragEnd={() => { dragEndEvent(); }}
               onDragOver={(e) => { dragOverEvent(e, card, index); }}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router';
+import '../i18n';
 
 import {
   Men, Women, Kids, Customise, NotFound 

@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function CatalogMenuFormView({
   nameReg, priceReg, handleSubmit, addNewCards, onPressKey, errors, toggleMenuFilter 
 }) {
+  const { t } = useTranslation();
   return (
     <div className="cards">
       <div className="cards_menu">
-        <h3 className="cards_title">Create a new shoe card</h3>
+        <h3 className="cards_title">{t('catalog.form.title')}</h3>
         <form className="form" onSubmit={handleSubmit((data) => { addNewCards(data.name, data.price); })}>
           <input 
             onChange={nameReg.onChange}
@@ -14,7 +16,7 @@ function CatalogMenuFormView({
             name={nameReg.name}
             ref={nameReg.ref}
             type="name"
-            placeholder="Enter name"
+            placeholder={t('catalog.form.placeholder.name')}
             tabIndex={0}
             onKeyDown={(e) => onPressKey(e)}
           />
@@ -27,15 +29,15 @@ function CatalogMenuFormView({
             name={priceReg.name}
             ref={priceReg.ref}
             type="price"
-            placeholder="Enter price"
+            placeholder={t('catalog.form.placeholder.price')}
             tabIndex={0}
             onKeyDown={(e) => onPressKey(e)}
           />
           <div className="error_price">
             {errors?.price?.message}
           </div>
-          <button className="form_submit" type="submit">Add Card</button>
-          <p className="form_info">After change - press ctrl+1 to reset form</p>
+          <button className="form_submit" type="submit">{t('catalog.form.submit')}</button>
+          <p className="form_info">{t('catalog.form.info')}</p>
         </form>
       </div>
       <button aria-label="close form" type="button" onClick={toggleMenuFilter} className="cards_close" />

@@ -5,9 +5,12 @@ import PropTypes from 'prop-types';
 
 import ModalView from './ModalView';
 
-function Modal({ activePromo, onSelectModal, currency }) {
+function Modal({
+  activePromo, onSelectModal, currency, onClickShop 
+}) {
   const [count, setCount] = useState(1);
   const [price, setPrice] = useState(1);
+  const [thanks, setThanks] = useState(false);
   const [activeCharacter, setActiveCharacter] = useState({});
   const [currencys, setCurrencys] = useState([
     {
@@ -59,15 +62,23 @@ function Modal({ activePromo, onSelectModal, currency }) {
     setActiveCharacter(currencys.filter((item) => item.select)[0]); 
   };
 
+  // Отображение благодарности по клику на кнопку "add to bag"
+  const onClickThanks = useCallback(() => {
+    setThanks((prevThanks) => !prevThanks);
+  });
+
+  // Установка первоначального значения цены
   useEffect(() => {
     setPrice(Math.round(activePromo.price));
     getActiveCharacter();
   }, []);
 
+  // Установка эмблемы валюты при перерендере
   useEffect(() => {
     getActiveCharacter();
   }, [currencys]);
 
+  // Установка цены в соответствие с изминением количества и валюты
   useEffect(() => {
     checkCurrencyPrice(activeCharacter.name);
   }, [count, activeCharacter]);
@@ -82,6 +93,9 @@ function Modal({ activePromo, onSelectModal, currency }) {
       activeCharacter={activeCharacter}
       onSelectCurrency={onSelectCurrency}
       currencys={currencys}
+      onClickShop={onClickShop}
+      thanks={thanks}
+      onClickThanks={onClickThanks}
     />
   );
 }
@@ -91,6 +105,7 @@ Modal.propTypes = {
     price: PropTypes.number
   }),
   onSelectModal: PropTypes.func.isRequired,
+  onClickShop: PropTypes.func.isRequired,
   currency: PropTypes.arrayOf(PropTypes.shape()).isRequired
 };
 

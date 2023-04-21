@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function SlideItemView({
   name,
@@ -22,6 +23,7 @@ function SlideItemView({
   onError,
   imageOnLoaded
 }) {
+  const { t } = useTranslation();
   return (
     <div className={style}>
       <div 
@@ -50,7 +52,7 @@ function SlideItemView({
         <div aria-hidden="true" onClick={deletedCard} className="card_deleted" />
         <p className="card_name">{name}</p>
         <div className="card_price">
-          Price :
+          {t('catalog.slider.price')}
           {price}
           $
         </div>

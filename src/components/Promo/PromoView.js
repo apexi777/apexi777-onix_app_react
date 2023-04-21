@@ -1,27 +1,19 @@
 import PropTypes from 'prop-types';
 
+import { useTranslation } from 'react-i18next';
 import PromoContent from './PromoContent';
 
 function PromoView({ updateLoading, loaded }) {
+  const { t } = useTranslation();
   return (
     <div className="promo">
       <div className="container">
         <div className="promo_block">
           <div className="promo_block_header">
-            JUST 
-            {' '}
-            <br />
-            {' '}
-            DO
-            <br />
-            {' '}
-            IT
-            <br />
+            {t('promo.title')}
           </div>
           <div className="promo_block_subheader">
-            Innovated to withstand your toughest matches, 
-            this updated design puts flexible, 
-            durable materials exactly where they&apos;re needed most. 
+            {t('promo.subtitle')}
           </div>
         </div>
         <PromoContent 

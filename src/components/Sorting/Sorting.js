@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import {
   PRICE_HIGH_TO_LOW, 
@@ -8,20 +9,21 @@ import {
 import './sass/Sorting.scss';
 
 function Sorting({ setSelectState }) {
+  const { t } = useTranslation();
   return (
     <div className="sorting">
       <div className="container">
         <div className="sorting_view">
           <Select 
-            placeholder="Sort shoes by ..."
+            placeholder={t('sorting.placeholder')}
             onChange={(value) => {
               setSelectState(value.value);
             }}
             options={
               [
-                { value: PRICE_HIGH_TO_LOW, label: PRICE_HIGH_TO_LOW },
-                { value: PRICE_LOW_TO_HIGH, label: PRICE_LOW_TO_HIGH },
-                { value: PRICE_FEATURED, label: PRICE_FEATURED }
+                { value: PRICE_HIGH_TO_LOW, label: t('sorting.options.low') },
+                { value: PRICE_LOW_TO_HIGH, label: t('sorting.options.high') },
+                { value: PRICE_FEATURED, label: t('sorting.options.featured') }
               ]
           }
           />  

@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import './sass/Footer.scss';
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <div className="footer">
       <div className="footer_names">
@@ -10,7 +12,7 @@ function Footer() {
           target="_blank" 
           rel="noopener noreferrer"
         >
-          Layout by Andrey Babich
+          {t('footer.layout')}
         </a>
         <a 
           className="footer_name" 
@@ -18,7 +20,7 @@ function Footer() {
           target="_blank" 
           rel="noopener noreferrer"
         >
-          Designed By Nanda
+          {t('footer.designed')}
         </a>
       </div>
     </div>

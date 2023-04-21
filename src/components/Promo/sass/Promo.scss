@@ -6,11 +6,13 @@
     &_block {
         margin: 70px 20px 50px 70px;
         &_header {
+            word-spacing: 100vw;
             font-weight: 700;
             font-size: 74.1083px;
             line-height: 129%;
             letter-spacing: 0.015em;
             color: #FFFFFF;
+            text-transform: uppercase;
         }
         &_subheader {
             margin-top: 20px;

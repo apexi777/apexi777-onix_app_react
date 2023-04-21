@@ -1,5 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Outlet } from 'react-router-dom';
+import { useState, useCallback, useEffect } from 'react';
 import withHeaderView from './WithHeaderView';
 import HeaderNav from './HeaderNav';
 
@@ -12,6 +14,22 @@ import './sass/Header.scss';
 function HeaderView({
   menuItems, onShowNavMenu, terminate, onValidateSearch, classMenu 
 }) {
+  const { t, i18n } = useTranslation();
+
+  const [lang, setLang] = useState('');
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, []);
+
+  const onChangeLang = useCallback((e) => {
+    const target = e.currentTarget.value;
+    if (target !== lang) {
+      setLang(target);
+      i18n.changeLanguage(target);
+    }
+  }, [lang]);
+
   return (
     <header className="header">
       <div className="container">
@@ -40,7 +58,7 @@ function HeaderView({
               <input 
                 onChange={onValidateSearch} 
                 value={terminate} 
-                placeholder="Search" 
+                placeholder={t('header.search.placeholder')} 
                 type="text" 
                 className="menu_search_input"
               />
@@ -56,6 +74,33 @@ function HeaderView({
               <a onClick={(e) => { e.preventDefault(); }} href="#top">
                 <img src={buy} alt="buy_icon" />
               </a>
+            </div>
+            <div className="menu_lang">
+              <label htmlFor="english">
+                {t('header.lang.en')}
+                <input 
+                  type="radio" 
+                  id="english"
+                  name="en"
+                  value="en"
+                  className="menu_lang_input"
+                  checked={lang === 'en'}
+                  onChange={onChangeLang}
+                />
+              </label>
+              <label htmlFor="ukraine">
+                {t('header.lang.ua')}
+                <input 
+                  type="radio" 
+                  id="ukraine"
+                  name="ua"
+                  value="ua"
+                  className="menu_lang_input"
+                  checked={lang === 'ua'}
+                  onChange={onChangeLang}
+                />
+              </label>
+
             </div>
           </ul>
         </nav>

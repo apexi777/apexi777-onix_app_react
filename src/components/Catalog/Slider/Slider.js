@@ -35,24 +35,24 @@ function Slider({
     return style;
   });
 
-  const dragStartEvent = (block) => {
+  const dragStartEvent = useCallback((block) => {
     setCurrentBlock(block);
-  };
+  }, [currentBlock]);
 
-  const dragEndEvent = () => {
+  const dragEndEvent = useCallback(() => {
     setOverId(null);
-  };
+  }, [overId]);
 
-  const dragOverEvent = (e, block) => {
+  const dragOverEvent = useCallback((e, block) => {
     e.preventDefault();
     setOverId(block.id);
-  };
+  }, [overId]);
 
-  const dropEvent = (e, block) => {
+  const dropEvent = useCallback((e, block) => {
     setOverId(null);
     e.preventDefault();
     updateData(currentBlock, block);
-  };
+  }, [overId]);
 
   const sortBlock = (a, b) => {
     if (a.order > b.order) {
@@ -61,18 +61,18 @@ function Slider({
     return -1;
   };
 
-  const onPressButtonSlide = (e, somData) => {
+  const onPressButtonSlide = useCallback((e, somData) => {
     const { id } = e.target;
     switch (id) {
       case CLICK_PREVIOUS_BUTTON:
-        setCount(({ prevCount }) => Math.max(prevCount - 1, 0));
+        setCount((prevCount) => Math.max(prevCount - 1, 0));
         break;
       case CLICK_NEXT_BUTTON: 
-        setCount(({ prevCount }) => Math.min(prevCount + 1, somData.length - 1));
+        setCount((prevCount) => Math.min(prevCount + 1, somData.length - 1));
         break; 
       default: break;
     }
-  };
+  }, [count]);
 
   return (
     <SliderView

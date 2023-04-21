@@ -3,20 +3,23 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import CatalogMenuFormView from './CatalogMenuFormView';
 
 import '../sass/CatalogMenuForm.scss';
 
 function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
+  const { t } = useTranslation();
+
   const validationSchema = yup.object({
     name: yup.string()
-      .min(4, 'Minimum 4 characters ')
-      .required('It is a required field.'),
+      .required(t('catalog.form.validate.name.req'))
+      .min(4, t('catalog.form.validate.name.min')),
     price: yup.number()
-      .required('It is a required field.')
-      .min(10, 'Minimal number 10')
-      .typeError('Price must be a number'),
+      .required(t('catalog.form.validate.price.req'))
+      .min(10, t('catalog.form.validate.price.min'))
+      .typeError(t('catalog.form.validate.price.type')),
   });
 
   const {
