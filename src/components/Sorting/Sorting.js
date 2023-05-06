@@ -1,6 +1,13 @@
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import Select from 'react-select';
+import { useSelector, useDispatch } from 'react-redux';
+import { useSorting } from '../../hooks/sortingHook';
+
+import { 
+  shoesApplyFilter,
+  shoesUpdateAfterDrag
+} from '../../store/slice/data';
 import {
   PRICE_HIGH_TO_LOW, 
   PRICE_LOW_TO_HIGH,
@@ -8,8 +15,20 @@ import {
 } from '../../constans/translates';
 import './sass/Sorting.scss';
 
-function Sorting({ setSelectState }) {
+function Sorting() {
+  const filter = useSelector((state) => state.shoes.filter);
+  const shoes = useSelector((state) => state.shoes.shoes);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { onSortDataByPrice } = useSorting();
+
+  useEffect(() => {
+    if (filter !== null) {
+      const result = onSortDataByPrice(shoes, filter);
+      dispatch(shoesUpdateAfterDrag(result));
+    }
+  }, [filter]);
+
   return (
     <div className="sorting">
       <div className="container">
@@ -17,7 +36,7 @@ function Sorting({ setSelectState }) {
           <Select 
             placeholder={t('sorting.placeholder')}
             onChange={(value) => {
-              setSelectState(value.value);
+              dispatch(shoesApplyFilter(value.value));
             }}
             options={
               [
@@ -32,9 +51,5 @@ function Sorting({ setSelectState }) {
     </div>
   );
 }
-
-Sorting.propTypes = {
-  setSelectState: PropTypes.func.isRequired
-};
 
 export default Sorting;

@@ -1,15 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { shoesCreated } from '../../../store/slice/data';
+import { useHttp } from '../../../hooks/httpHook';
 import CatalogMenuFormView from './CatalogMenuFormView';
 
 import '../sass/CatalogMenuForm.scss';
 
-function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
+function CatalogMenuForm() {
+  const { request } = useHttp();
+  const dispatch = useDispatch();
+  const shoes = useSelector((state) => state.shoes.shoes);
   const { t } = useTranslation();
 
   const validationSchema = yup.object({
@@ -21,6 +27,26 @@ function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
       .min(10, t('catalog.form.validate.price.min'))
       .typeError(t('catalog.form.validate.price.type')),
   });
+
+  // Add new object to data object
+  const addNewCards = useCallback((name, price) => {
+    if (typeof (name) === 'string' && typeof (price) === 'number') {
+      const newCards = {
+        image: '',
+        name,
+        order: shoes.length + 1,
+        visibleOnPromo: false,
+        promo: `${process.env.PUBLIC_URL}/assets/img/promo/promo_green_shoes.png`,
+        id: uuidv4(),
+        price,
+        select: {}
+      };
+      request('http://localhost:3001/data', true, 'POST', JSON.stringify(newCards))
+        // eslint-disable-next-line no-console
+        .then((res) => console.log(res, 'Отправка успешна'));
+      dispatch(shoesCreated(newCards));
+    }
+  }, [shoes]);
 
   const {
     register,
@@ -60,17 +86,10 @@ function CatalogMenuForm({ toggleMenuFilter, addNewCards }) {
       onPressKey={onPressKey}
       nameReg={nameReg}
       priceReg={priceReg}
-      handleSubmit={handleSubmit}
       errors={errors}
-      toggleMenuFilter={toggleMenuFilter}
-      addNewCards={addNewCards}
+      onSubmit={handleSubmit((data) => addNewCards(data.name, data.price))}
     />
   );
 }
-
-CatalogMenuForm.propTypes = {
-  toggleMenuFilter: PropTypes.func.isRequired,
-  addNewCards: PropTypes.func.isRequired,
-};
 
 export default CatalogMenuForm;

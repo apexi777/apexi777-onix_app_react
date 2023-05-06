@@ -1,19 +1,26 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  onCurrencyMenuUpdate
+} from '../../store/slice/currency';
 
 import './sass/ModalCurrency.scss';
 
-function Currency({ onSelectCurrency, currencys }) {
+function Currency() {
+  const dispatch = useDispatch();
+  const currencyMenu = useSelector((state) => state.currency.currencyMenu);
+  const currencyMenuClone = currencyMenu.slice();
   return (
     <div className="currency">
       {
-        currencys.map(({
+        currencyMenuClone.map(({
           name, id, select 
         }) => (
           <button 
             type="button" 
             className={`currency_nav${select ? ' select' : ''}`}
             key={id}
-            onClick={() => onSelectCurrency(id, name)}
+            onClick={() => dispatch(onCurrencyMenuUpdate(id))}
           >
             {name}
           </button>
@@ -22,14 +29,5 @@ function Currency({ onSelectCurrency, currencys }) {
     </div>
   );
 }
-
-Currency.propTypes = {
-  onSelectCurrency: PropTypes.func.isRequired,
-  currencys: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.number,
-    select: PropTypes.bool,
-  })).isRequired,
-};
 
 export default Currency;

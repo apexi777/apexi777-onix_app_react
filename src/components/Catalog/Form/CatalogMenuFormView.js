@@ -1,15 +1,22 @@
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+import { filterMenuToggle } from '../../../store/slice/visibility';
+
 function CatalogMenuFormView({
-  nameReg, priceReg, handleSubmit, addNewCards, onPressKey, errors, toggleMenuFilter 
+  nameReg, priceReg, onSubmit, onPressKey, errors 
 }) {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   return (
     <div className="cards">
       <div className="cards_menu">
         <h3 className="cards_title">{t('catalog.form.title')}</h3>
-        <form className="form" onSubmit={handleSubmit((data) => { addNewCards(data.name, data.price); })}>
+        <form 
+          className="form"
+          onSubmit={onSubmit}
+        >
           <input 
             onChange={nameReg.onChange}
             onBlur={nameReg.onBlur}
@@ -40,14 +47,17 @@ function CatalogMenuFormView({
           <p className="form_info">{t('catalog.form.info')}</p>
         </form>
       </div>
-      <button aria-label="close form" type="button" onClick={toggleMenuFilter} className="cards_close" />
+      <button 
+        aria-label="close form" 
+        type="button"
+        onClick={() => dispatch(filterMenuToggle())}
+        className="cards_close"
+      />
     </div>  
   );
 }
 
 CatalogMenuFormView.propTypes = {
-  toggleMenuFilter: PropTypes.func.isRequired,
-  addNewCards: PropTypes.func.isRequired,
   nameReg: PropTypes.shape({
     name: PropTypes.string,
     onBlur: PropTypes.func,
@@ -60,7 +70,7 @@ CatalogMenuFormView.propTypes = {
     onChange: PropTypes.func,
     ref: PropTypes.func
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   errors: PropTypes.shape({
     name: PropTypes.shape({
       message: PropTypes.string

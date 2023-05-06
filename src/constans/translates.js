@@ -27,3 +27,9 @@ export const SLIDE_NOACTIVE_RIGHT = 'slide slide_next';
 export const SLIDE_NOACTIVE_LEFT = 'slide slide_prev';
 
 export const SLIDE_CHOICE = ' choice';
+
+// Modal Component
+
+export const BUTTON_REMOVE_COUNT = 'data-rm';
+
+export const BUTTON_ADD_COUNT = 'data-add';

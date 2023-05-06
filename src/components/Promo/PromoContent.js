@@ -1,35 +1,35 @@
-import { useContext } from 'react';
-import PropTypes from 'prop-types';
+// import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { promoLoadingStatus } from '../../store/slice/visibility';
 
-import MyContext from '../../context';
+// import MyContext from '../../context';
 
-function PromoContent({ updateLoading, loaded }) {
-  const value = useContext(MyContext);
+function PromoContent() {
+  const dispatch = useDispatch();
+  const promoLoading = useSelector((state) => state.visibility.promoLoading);
+  const activePromo = useSelector((state) => state.shoes.activePromo);
+
+  // const value = useContext(MyContext);
   return (
-    <div className={`promo_showing ${!value?.promo ? 'disabled' : ''}`}>
+    <div className={`promo_showing ${!activePromo?.promo ? 'disabled' : ''}`}>
       <div className="promo_showing_title">
         <p>
           {' '}
           NikeCourt Zoom
           <br /> 
           {' '}
-          {value?.name}
+          {activePromo?.name}
           {' '}
         </p>
       </div>
       <img 
         className="promo_showing_element" 
-        onLoad={updateLoading}
-        src={!loaded ? `${`${process.env.PUBLIC_URL}/assets/spinner.svg`}` : `${value?.promo}`} 
+        onLoad={() => dispatch(promoLoadingStatus())}
+        src={!promoLoading ? `${`${process.env.PUBLIC_URL}/assets/spinner.svg`}` : `${activePromo?.promo}`} 
         alt="promo_image"
       />
     </div>
   );
 }
-
-PromoContent.propTypes = {
-  updateLoading: PropTypes.func.isRequired,
-  loaded: PropTypes.bool.isRequired,
-};
 
 export default PromoContent;

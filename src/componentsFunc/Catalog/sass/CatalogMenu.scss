@@ -1,0 +1,32 @@
+
+
+.buttons {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+
+    .sort {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &_title {
+            font-size: 15px;
+            text-transform: capitalize;
+            margin-left: 5px;
+        }
+    }
+    
+}
+
+.active {
+    .slider {
+        &_btn {
+            transition: transform 0.9s;
+            transform: translateX(-400%);
+        }
+    }
+    .cards {
+        width: 100%;
+    }
+}
+

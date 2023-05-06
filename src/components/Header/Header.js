@@ -1,37 +1,46 @@
-import { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
+import { 
+  searchUpdate, 
+  searchRequest,
+  activePromoUpdate
+} from '../../store/slice/data';
+import { langInitialization } from '../../store/slice/header';
 import HeaderView from './HeaderView';
 
-function Header({ onUpdateSearch }) {
-  const [menuItems] = useState([
-    { name: 'Men', action: true, id: 101 },
-    { name: 'Women', action: false, id: 102 },
-    { name: 'Kids', action: false, id: 103 },
-    { name: 'Customise', action: false, id: 104 }
-  ]);
-
-  // Intermediate values search data
-  const [terminate, setTerminate] = useState('');
+function Header() {
+  const { i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.shoes.searchValue);
+  const lang = useSelector((state) => state.header.lang);
 
   // Sending the search data to the parent component
   const onValidateSearch = useCallback((e) => {
     const value = e.target.value.replace(/[^A-Za-z0-9]/, '');
-    setTerminate(value);
-    onUpdateSearch(value);
-  }, [terminate]);
+    dispatch(searchUpdate(value));
+  }, [searchValue]);
+
+  useEffect(() => {
+    dispatch(searchRequest());
+    dispatch(activePromoUpdate());
+  }, [searchValue]);
+
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+  }, [lang]);
+
+  // Setting the initial language value
+  useEffect(() => {
+    dispatch(langInitialization(i18n.language));
+  }, []);
 
   return (
     <HeaderView
-      menuItems={menuItems}
       onValidateSearch={onValidateSearch}
-      terminate={terminate}
     />    
   );
 }
-
-Header.propTypes = {
-  onUpdateSearch: PropTypes.func.isRequired,
-};
 
 export default Header;

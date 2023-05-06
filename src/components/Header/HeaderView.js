@@ -1,9 +1,13 @@
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Outlet } from 'react-router-dom';
-import { useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import withHeaderView from './WithHeaderView';
 import HeaderNav from './HeaderNav';
+
+import {
+  langChange
+} from '../../store/slice/header';
 
 import logo from '../../assets/icons/logo.png';
 import buy from '../../assets/icons/buy-icon.png';
@@ -12,23 +16,15 @@ import search from '../../assets/icons/search-icon.png';
 import './sass/Header.scss';
 
 function HeaderView({
-  menuItems, onShowNavMenu, terminate, onValidateSearch, classMenu 
+  onShowNavMenu, onValidateSearch, classMenu 
 }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.shoes.searchValue);
+  const headerMenu = useSelector((state) => state.header.headerMenu);
+  const lang = useSelector((state) => state.header.lang);
 
-  const [lang, setLang] = useState('');
-
-  useEffect(() => {
-    setLang(i18n.language);
-  }, []);
-
-  const onChangeLang = useCallback((e) => {
-    const target = e.currentTarget.value;
-    if (target !== lang) {
-      setLang(target);
-      i18n.changeLanguage(target);
-    }
-  }, [lang]);
+  const menuItems = headerMenu.slice();
 
   return (
     <header className="header">
@@ -56,14 +52,14 @@ function HeaderView({
             }
             <form className="menu_search" action="#">
               <input 
-                onChange={onValidateSearch} 
-                value={terminate} 
+                onChange={(e) => onValidateSearch(e)} 
+                value={searchValue} 
                 placeholder={t('header.search.placeholder')} 
                 type="text" 
                 className="menu_search_input"
               />
               <input 
-                onClick={(e) => { e.preventDefault(); }} 
+                onClick={(e) => e.preventDefault()} 
                 className="menu_search_submit" 
                 type="image" 
                 alt="submit" 
@@ -71,7 +67,7 @@ function HeaderView({
               />
             </form>
             <div className="menu_buy">
-              <a onClick={(e) => { e.preventDefault(); }} href="#top">
+              <a onClick={(e) => e.preventDefault()} href="#top">
                 <img src={buy} alt="buy_icon" />
               </a>
             </div>
@@ -85,7 +81,7 @@ function HeaderView({
                   value="en"
                   className="menu_lang_input"
                   checked={lang === 'en'}
-                  onChange={onChangeLang}
+                  onChange={(e) => dispatch(langChange(e.currentTarget.value))}
                 />
               </label>
               <label htmlFor="ukraine">
@@ -97,7 +93,7 @@ function HeaderView({
                   value="ua"
                   className="menu_lang_input"
                   checked={lang === 'ua'}
-                  onChange={onChangeLang}
+                  onChange={(e) => dispatch(langChange(e.currentTarget.value))}
                 />
               </label>
 
@@ -112,13 +108,7 @@ function HeaderView({
 
 HeaderView.propTypes = {
   onValidateSearch: PropTypes.func.isRequired,
-  menuItems: PropTypes.arrayOf(PropTypes.shape({
-    action: PropTypes.bool,
-    id: PropTypes.number,
-    name: PropTypes.string
-  })).isRequired,
   onShowNavMenu: PropTypes.func.isRequired,
-  terminate: PropTypes.string.isRequired,
   classMenu: PropTypes.bool.isRequired
 };
 

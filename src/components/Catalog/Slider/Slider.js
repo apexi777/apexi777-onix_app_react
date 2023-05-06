@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { shoesUpdateAfterDrag } from '../../../store/slice/data';
 import { 
   CLICK_NEXT_BUTTON, 
   CLICK_PREVIOUS_BUTTON,
@@ -15,9 +16,10 @@ import SliderView from './SliderView';
 
 import '../sass/Slider.scss';
 
-function Slider({
-  onSelectCatalog, toggleFavorite, deletedCard, data, updateData 
-}) {
+function Slider() {
+  const shoes = useSelector((state) => state.shoes.shoes);
+  const dispatch = useDispatch();
+
   const [overId, setOverId] = useState(null);
   const [currentBlock, setCurrentBlock] = useState(null);
   const [count, setCount] = useState(0);
@@ -35,6 +37,21 @@ function Slider({
     return style;
   });
 
+  const updateData = (inDragBlock, inDragOverBlock, array) => {
+    if (inDragBlock !== inDragOverBlock) {
+      const receivedData = array.map((card) => {
+        if (card.id === inDragOverBlock.id) {
+          return { ...card, order: inDragBlock.order };
+        }
+        if (card.id === inDragBlock.id) {
+          return { ...card, order: inDragOverBlock.order };
+        }
+        return card;
+      });
+      dispatch(shoesUpdateAfterDrag(receivedData));
+    }
+  };
+
   const dragStartEvent = useCallback((block) => {
     setCurrentBlock(block);
   }, [currentBlock]);
@@ -51,7 +68,7 @@ function Slider({
   const dropEvent = useCallback((e, block) => {
     setOverId(null);
     e.preventDefault();
-    updateData(currentBlock, block);
+    updateData(currentBlock, block, shoes);
   }, [overId]);
 
   const sortBlock = (a, b) => {
@@ -76,14 +93,10 @@ function Slider({
 
   return (
     <SliderView
-      onPressButtonSlide={(e) => onPressButtonSlide(e, data)}
-      data={data}
+      onPressButtonSlide={(e) => onPressButtonSlide(e, shoes)}
       sortBlock={sortBlock} 
       count={count} 
-      overId={overId} 
-      onSelectCatalog={onSelectCatalog} 
-      toggleFavorite={toggleFavorite} 
-      deletedCard={deletedCard}  
+      overId={overId}  
       dragStartEvent={dragStartEvent} 
       dragEndEvent={dragEndEvent} 
       dropEvent={dropEvent} 
@@ -92,13 +105,5 @@ function Slider({
     />
   );
 }
-
-Slider.propTypes = {
-  onSelectCatalog: PropTypes.func.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  updateData: PropTypes.func.isRequired,
-  deletedCard: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-};
 
 export default Slider;

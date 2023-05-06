@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function withHeaderView(BaseComponent) {
   return function view({
-    menuItems, terminate, onValidateSearch,
+    onValidateSearch,
   }) {
     const [classMenu, setClassMenu] = useState(false);
 
@@ -12,10 +12,8 @@ function withHeaderView(BaseComponent) {
     }, [classMenu]);
     return (
       <BaseComponent
-        menuItems={menuItems}
         onShowNavMenu={onShowNavMenu}
         onValidateSearch={onValidateSearch}
-        terminate={terminate}
         classMenu={classMenu}
       />
     );
@@ -24,7 +22,6 @@ function withHeaderView(BaseComponent) {
 
 withHeaderView.propTypes = {
   onValidateSearch: PropTypes.func.isRequired,
-  menuItems: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   terminate: PropTypes.string.isRequired,
 };
 

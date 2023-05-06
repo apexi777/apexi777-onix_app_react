@@ -1,26 +1,30 @@
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { 
+  visibilityModalWindow,
+  thanksActivated
+} from '../../store/slice/visibility';
+import {
+  countChange
+} from '../../store/slice/currency';
 import Currency from './ModalCurrency';
 
 import './sass/Modal.scss';
 
-function ModalView({
-  activePromo, 
-  addCount, 
-  onSelectModal, 
-  price, 
-  count, 
-  activeCharacter, 
-  onSelectCurrency, 
-  currencys, 
-  onClickShop, 
-  thanks, 
-  onClickThanks 
+function ModalView({  
+  name, 
+  image, 
+  onClickShop
 }) {
-  const { image, name } = activePromo;
+  const thanks = useSelector((state) => state.visibility.thanksInModal);
+  const price = useSelector((state) => state.currency.price);
+  const count = useSelector((state) => state.currency.count);
+  const activeCharacter = useSelector((state) => state.currency.activeCharacter);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   return (
     <div className="block">
       <div className={`modal${thanks ? ' click_shop' : ''}`}>
@@ -32,19 +36,36 @@ function ModalView({
         <div className="modal_info">
           <p className="modal_info_title">{name}</p>
           <div className="modal_info_block">
-            <button type="button" data="data-rm" onClick={(e) => addCount(e)} className="modal_info_btn">-</button>
+            <button 
+              type="button" 
+              data="data-rm" 
+              onClick={(e) => dispatch(countChange(e.target.getAttribute('data')))} 
+              className="modal_info_btn"
+            >
+              -
+
+            </button>
             <div className="modal_info_count">{count}</div>
-            <button type="button" data="data-add" onClick={(e) => addCount(e)} className="modal_info_btn">+</button>
+            <button 
+              type="button"
+              data="data-add"
+              onClick={(e) => dispatch(countChange(e.target.getAttribute('data')))} 
+              className="modal_info_btn"
+            >
+              +
+            </button>
           </div>
         </div>
-        <button aria-label="close bag" type="button" onClick={(e) => onSelectModal(e)} className="modal_close" />
+        <button 
+          aria-label="close bag"
+          type="button"
+          onClick={() => dispatch(visibilityModalWindow())}
+          className="modal_close"
+        />
         
         <div className="modal_price">
           <div className="modal_price_currency">
-            <Currency 
-              onSelectCurrency={onSelectCurrency}
-              currencys={currencys}
-            />
+            <Currency />
           </div>
           <div className="modal_price_sum">
             {t('modal.total')}
@@ -52,7 +73,10 @@ function ModalView({
             {activeCharacter.character}
           </div>
           <button 
-            onClick={(e) => { onClickShop(e); onClickThanks(); }} 
+            onClick={() => {
+              onClickShop(); 
+              dispatch(thanksActivated()); 
+            }} 
             type="button" 
             className="modal_price_button"
           >
@@ -68,22 +92,9 @@ function ModalView({
 }
 
 ModalView.propTypes = {
-  activePromo: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string
-  }).isRequired,
-  addCount: PropTypes.func.isRequired,
-  onSelectCurrency: PropTypes.func.isRequired,
-  price: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
-  activeCharacter: PropTypes.shape({
-    character: PropTypes.string
-  }).isRequired,
-  onSelectModal: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   onClickShop: PropTypes.func.isRequired,
-  currencys: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  thanks: PropTypes.bool.isRequired,
-  onClickThanks: PropTypes.func.isRequired,
 };
 
 export default ModalView;

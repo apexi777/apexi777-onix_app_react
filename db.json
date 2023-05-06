@@ -59,6 +59,16 @@
       "promo": "../assets/img/promo/promo_green_shoes.png",
       "price": 70,
       "select": {}
+    },
+    {
+      "image": "",
+      "name": "sdgsdg",
+      "order": 6,
+      "visibleOnPromo": false,
+      "promo": "/assets/img/promo/promo_green_shoes.png",
+      "id": "a82210bf-411e-49e3-903c-947e27a0becf",
+      "price": 23553,
+      "select": {}
     }
   ]
 }

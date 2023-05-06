@@ -1,31 +1,28 @@
 import PropTypes from 'prop-types';
-
-// import { 
-//   SLIDE_ACTIVE_CENTER,
-//   SLIDE_ACTIVE_LEFT,
-//   SLIDE_ACTIVE_RIGHT,
-//   SLIDE_NOACTIVE_LEFT,
-//   SLIDE_NOACTIVE_RIGHT,
-//   SLIDE_CHOICE
-// } from '../../../constans/translates';
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+  shoesUpdateAfterSelectCatalog,
+  shoesDeleted,
+  shoesToggleFavorite,
+  activePromoUpdate
+} from '../../../store/slice/data';
 
 import SliderItem from './SliderItem';
 
 function SliderView({
   onPressButtonSlide, 
-  data, 
   count, 
   sortBlock,
-  overId, 
-  onSelectCatalog, 
-  toggleFavorite, 
-  deletedCard,
+  overId,  
   dragStartEvent, 
   dragEndEvent, 
   dropEvent, 
   dragOverEvent,
   updateStyleByCard
 }) {
+  const shoes = useSelector((state) => state.shoes.shoes);
+  const dispatch = useDispatch();
+  const copyShoes = shoes.slice();
   return (
     <div className="block_card">
       <div 
@@ -35,7 +32,7 @@ function SliderView({
         id="previous"
       />
       <div className="cards_menu">
-        {data.sort(sortBlock).map((card, index) => {
+        {copyShoes.sort(sortBlock).map((card, index) => {
           const {
             id, name, price, visibleOnPromo, image, select 
           } = card;
@@ -56,9 +53,9 @@ function SliderView({
               onDragEnd={() => { dragEndEvent(); }}
               onDragOver={(e) => { dragOverEvent(e, card, index); }}
               onDrop={(e) => { dropEvent(e, card); }}
-              onSelectCatalog={() => onSelectCatalog(id)}
-              toggleFavorite={() => toggleFavorite(id)}
-              deletedCard={() => { deletedCard(id); }}
+              onSelectCatalog={() => dispatch(shoesUpdateAfterSelectCatalog(id))}
+              toggleFavorite={() => dispatch(shoesToggleFavorite(id))}
+              deletedCard={() => { dispatch(shoesDeleted(id)); dispatch(activePromoUpdate()); }}
             />
           );
         })}
@@ -71,26 +68,13 @@ function SliderView({
 SliderView.propTypes = {
   onPressButtonSlide: PropTypes.func.isRequired,
   updateStyleByCard: PropTypes.func.isRequired,
-  onSelectCatalog: PropTypes.func.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  deletedCard: PropTypes.func.isRequired,
   sortBlock: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
   dragStartEvent: PropTypes.func.isRequired,
   dragEndEvent: PropTypes.func.isRequired,
   dropEvent: PropTypes.func.isRequired,
   dragOverEvent: PropTypes.func.isRequired,
-  overId: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    image: PropTypes.string,
-    name: PropTypes.string,
-    order: PropTypes.number,
-    price: PropTypes.number,
-    promo: PropTypes.string,
-    select: PropTypes.shape(),
-    visibleOnPromo: PropTypes.bool
-  })).isRequired,
+  overId: PropTypes.string
 };
 
 SliderView.defaultProps = {

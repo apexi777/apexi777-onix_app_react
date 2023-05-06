@@ -1,0 +1,101 @@
+@import "~/src/style/mixins.scss";
+
+.cards {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    right: 0;
+    height: 100%;
+    width: 0%;
+    background-color: rgba(71, 70, 73, 0.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: 0.9s;
+    border-radius: 20px;
+    &_title {
+        color: #ffffff;
+    }
+    &_close {
+        position: absolute;
+        @include btn_close;
+    }
+    &_menu {
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        flex-direction: column;
+    }
+    .form {
+        display: grid;
+        grid-template-columns: 210px 210px;
+        grid-template-rows: repeat(5, 40px);
+        justify-items: center;
+        input {
+            width: 90%;
+            height: 90%;
+            //margin-top: 15px;
+            //padding: 5px 15px;
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            color: #353535;
+            border-radius: 10px;
+            //font-size: 22px;
+            &:nth-child(2) {
+                grid-row: 3;
+            }
+            &:focus {
+                outline: 1px solid #eef105;
+            }
+        }
+        &_submit {
+            @include buttons;
+            justify-self: end;
+            grid-column: 2;
+            grid-row: 1/5;
+            align-self: self-end;
+            width: 80%;
+            height: 30%;
+            text-transform: capitalize;
+            justify-self: center;
+            &:focus {
+                outline: 1px solid #f57507;
+            }
+        }
+        &_info {
+            grid-column: 2;
+            grid-row: 1;
+            text-align: center;
+            color:rgb(205, 219, 2);
+        }
+    }
+
+}
+
+.error {
+    &_name {
+        display: block;
+        color: wheat;
+        font-size: small;
+        width: 90%;
+        grid-row: 2
+    }
+    &_price {
+        display: block;
+        color: wheat;
+        font-size: small;
+        width: 90%;
+        grid-row: 4
+    }
+}
+
+
+@media(max-width: 575px) {
+    .cards {
+        &_menu {
+            flex-direction: row-reverse;
+            align-items:center;
+            justify-content: space-between;
+            margin-bottom: -10px;
+        }
+    }
+}
