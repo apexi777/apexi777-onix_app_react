@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   BUTTON_REMOVE_COUNT,
   BUTTON_ADD_COUNT
-} from '../../constans/translates';
+} from '../../../constans/translates';
+import { useHttp } from '../../../hooks/httpHook';
 
 const initialState = {
   currency: [],
@@ -25,21 +26,18 @@ const initialState = {
   ]
 };
 
+export const fetchCurrency = createAsyncThunk(
+  'currency/fetchCurrency',
+  () => {
+    const { request } = useHttp();
+    return request('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
+  }
+);
+
 const currencySlice = createSlice({
   name: 'currency',
   initialState,
   reducers: {
-    currencyFetching: (state) => { 
-      state.currencyLoadedStatus = 'loading'; 
-    },
-    currencyFetched: (state, action) => {
-      state.currencyLoadedStatus = 'idle';
-      state.currency = action.payload;
-      state.usdRate = action.payload.find((item) => item.cc === 'USD').rate;
-    },
-    currencyFetchingError: (state) => {
-      state.currencyLoadedStatus = 'error';
-    },
     countChange: (state, action) => {
       if (action.payload === BUTTON_REMOVE_COUNT) {
         if (state.count > 1) { 
@@ -69,6 +67,21 @@ const currencySlice = createSlice({
     activeCharacterUpdate: (state) => {
       [state.activeCharacter] = state.currencyMenu.filter((item) => item.select);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCurrency.pending, (state) => {
+        state.currencyLoadedStatus = 'loading'; 
+      })
+      .addCase(fetchCurrency.fulfilled, (state, action) => {
+        state.currencyLoadedStatus = 'idle';
+        state.currency = action.payload;
+        state.usdRate = action.payload.find((item) => item.cc === 'USD').rate;
+      })
+      .addCase(fetchCurrency.rejected, (state) => {
+        state.currencyLoadedStatus = 'error';
+      })
+      .addDefaultCase(() => {});
   }
 });
 
@@ -76,9 +89,6 @@ const { actions, reducer } = currencySlice;
 
 export default reducer;
 export const {
-  currencyFetching,
-  currencyFetched,
-  currencyFetchingError,
   countChange,
   onCurrencyMenuUpdate,
   priceUpdate,

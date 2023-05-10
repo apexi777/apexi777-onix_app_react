@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function withHeaderView(BaseComponent) {
   return function view({
-    onValidateSearch,
+    onValidateSearch
   }) {
     const [classMenu, setClassMenu] = useState(false);
 
@@ -22,7 +22,6 @@ function withHeaderView(BaseComponent) {
 
 withHeaderView.propTypes = {
   onValidateSearch: PropTypes.func.isRequired,
-  terminate: PropTypes.string.isRequired,
 };
 
 export default withHeaderView;

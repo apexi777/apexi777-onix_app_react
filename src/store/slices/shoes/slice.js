@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useHttp } from '../../../hooks/httpHook';
 
 const initialState = {
   shoes: [],
   visibleShoes: [],
-  shoesDataLoadedStatus: 'idle',
+  loadingShoes: false,
   activePromo: {},
   searchValue: '',
   filter: null,
@@ -15,21 +16,18 @@ const initialState = {
   ]
 };
 
+export const fetchData = createAsyncThunk(
+  'shoes/fetchShoes',
+  () => {
+    const { request } = useHttp();
+    return request('http://localhost:3001/data', true);
+  }
+);
+
 const dataSlice = createSlice({
   name: 'shoes',
   initialState,
   reducers: {
-    shoesFetching: (state) => { 
-      state.shoesDataLoadedStatus = 'loading'; 
-    },
-    shoesFetched: (state, action) => {
-      state.shoesDataLoadedStatus = 'idle';
-      state.shoes = action.payload;
-      state.visibleShoes = action.payload;
-    },
-    shoesFetchingError: (state) => {
-      state.shoesDataLoadedStatus = 'error';
-    },
     shoesCreated: (state, action) => {
       state.shoes.push(action.payload);
     },
@@ -78,6 +76,22 @@ const dataSlice = createSlice({
     shoesApplyFilter: (state, action) => {
       state.filter = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loadingShoes = true;
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.shoes = action.payload;
+        state.loadingShoes = false;
+        state.visibleShoes = action.payload;
+        state.searchValue = '';
+      })
+      .addCase(fetchData.rejected, (state) => {
+        state.loadingShoes = false;
+      })
+      .addDefaultCase(() => {});
   }
 });
 
@@ -85,9 +99,6 @@ const { actions, reducer } = dataSlice;
 
 export default reducer;
 export const {
-  shoesFetching,
-  shoesFetched,
-  shoesFetchingError,
   shoesCreated,
   shoesDeleted,
   shoesToggleFavorite,

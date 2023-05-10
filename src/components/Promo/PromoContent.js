@@ -1,15 +1,14 @@
-// import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { promoLoadingStatus } from '../../store/slice/visibility';
+import { promoLoadingStatus } from '../../store/slices/visibility/slice';
 
-// import MyContext from '../../context';
+import { selectorActivePromo } from '../../store/slices/shoes/selectors';
+import { selectorPromoLoading } from '../../store/slices/visibility/selectors';
 
 function PromoContent() {
   const dispatch = useDispatch();
-  const promoLoading = useSelector((state) => state.visibility.promoLoading);
-  const activePromo = useSelector((state) => state.shoes.activePromo);
+  const promoLoading = useSelector(selectorPromoLoading);
+  const activePromo = useSelector(selectorActivePromo);
 
-  // const value = useContext(MyContext);
   return (
     <div className={`promo_showing ${!activePromo?.promo ? 'disabled' : ''}`}>
       <div className="promo_showing_title">

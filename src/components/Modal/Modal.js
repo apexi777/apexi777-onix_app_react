@@ -1,24 +1,17 @@
-import {
-  useEffect 
-} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import {
-  visibilityModalWindow
-} from '../../store/slice/visibility';
-
-import {
-  activeCharacterUpdate,
-  priceUpdate
-} from '../../store/slice/currency';
+import { visibilityModalWindow } from '../../store/slices/visibility/slice';
+import { activeCharacterUpdate, priceUpdate } from '../../store/slices/currency/slice';
+import { selectorActivePromo } from '../../store/slices/shoes/selectors';
+import { selectorCount, selectorCurrencyMenu } from '../../store/slices/currency/selectors';
 
 import ModalView from './ModalView';
 
 function Modal() {
   const dispatch = useDispatch();
-  const activePromo = useSelector((state) => state.shoes.activePromo);
-  const count = useSelector((state) => state.currency.count);
-  const currencyMenu = useSelector((state) => state.currency.currencyMenu);
+  const activePromo = useSelector(selectorActivePromo);
+  const count = useSelector(selectorCount);
+  const currencyMenu = useSelector(selectorCurrencyMenu);
 
   // In modal component click to button 'add to bag' 
   const onClickShop = () => {

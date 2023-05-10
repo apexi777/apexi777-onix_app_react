@@ -7,17 +7,24 @@ import { useSorting } from '../../hooks/sortingHook';
 import { 
   shoesApplyFilter,
   shoesUpdateAfterDrag
-} from '../../store/slice/data';
+} from '../../store/slices/shoes/slice';
+
+import {
+  selectorShoes,
+  selectorFilter
+} from '../../store/slices/shoes/selectors';
+
 import {
   PRICE_HIGH_TO_LOW, 
   PRICE_LOW_TO_HIGH,
   PRICE_FEATURED,
 } from '../../constans/translates';
+
 import './sass/Sorting.scss';
 
 function Sorting() {
-  const filter = useSelector((state) => state.shoes.filter);
-  const shoes = useSelector((state) => state.shoes.shoes);
+  const filter = useSelector(selectorFilter);
+  const shoes = useSelector(selectorShoes);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { onSortDataByPrice } = useSorting();

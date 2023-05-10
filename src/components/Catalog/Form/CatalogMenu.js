@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { 
   filterMenuToggle,
   visibilityModalWindow
-} from '../../../store/slice/visibility';
+} from '../../../store/slices/visibility/slice';
+import { selectorFilterMenuView } from '../../../store/slices/visibility/selectors';
 
 import CatalogMenuForm from './CatalogMenuForm';
 import '../sass/CatalogMenu.scss';
 
 function CatalogMenu() {
-  const filterMenuView = useSelector((state) => state.visibility.filterMenuView);
+  const filterMenuView = useSelector(selectorFilterMenuView);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 

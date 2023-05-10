@@ -1,5 +1,5 @@
 @import url('../../../style/base.scss');
-
+@import "~/src/style/mixins.scss";
 .header {
     display: block;
 
@@ -15,6 +15,15 @@
         }
         &_icon {
             size: 94px;
+        }
+        &_update {
+            @include btn_update_data;
+            margin: auto;
+        }
+
+        .load {
+            @include btn_update_data_load;
+            margin: auto;
         }
     }
     &__nav {

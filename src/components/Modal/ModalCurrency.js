@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-
-import {
-  onCurrencyMenuUpdate
-} from '../../store/slice/currency';
+import { onCurrencyMenuUpdate } from '../../store/slices/currency/slice';
+import { selectorCurrencyMenu } from '../../store/slices/currency/selectors';
 
 import './sass/ModalCurrency.scss';
 
 function Currency() {
   const dispatch = useDispatch();
-  const currencyMenu = useSelector((state) => state.currency.currencyMenu);
+  const currencyMenu = useSelector(selectorCurrencyMenu);
   const currencyMenuClone = currencyMenu.slice();
   return (
     <div className="currency">

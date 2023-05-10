@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import shoes from './slice/data';
-import currency from './slice/currency';
-import visibility from './slice/visibility';
-import header from './slice/header';
+import shoes from './slices/shoes/slice';
+import currency from './slices/currency/slice';
+import visibility from './slices/visibility/slice';
+import header from './slices/header/slice';
 
 const store = configureStore({
   reducer: { 

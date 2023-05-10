@@ -5,7 +5,8 @@ import {
   shoesDeleted,
   shoesToggleFavorite,
   activePromoUpdate
-} from '../../../store/slice/data';
+} from '../../../store/slices/shoes/slice';
+import { selectorShoes } from '../../../store/slices/shoes/selectors';
 
 import SliderItem from './SliderItem';
 
@@ -20,7 +21,7 @@ function SliderView({
   dragOverEvent,
   updateStyleByCard
 }) {
-  const shoes = useSelector((state) => state.shoes.shoes);
+  const shoes = useSelector(selectorShoes);
   const dispatch = useDispatch();
   const copyShoes = shoes.slice();
   return (

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import { filterMenuToggle } from '../../../store/slice/visibility';
+import { filterMenuToggle } from '../../../store/slices/visibility/slice';
 
 function CatalogMenuFormView({
   nameReg, priceReg, onSubmit, onPressKey, errors 

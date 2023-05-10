@@ -3,15 +3,12 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { 
-  visibilityModalWindow,
-  thanksActivated
-} from '../../store/slice/visibility';
-import {
-  countChange
-} from '../../store/slice/currency';
-import Currency from './ModalCurrency';
+import { visibilityModalWindow, thanksActivated } from '../../store/slices/visibility/slice';
+import { selectorThanksInModal } from '../../store/slices/visibility/selectors';
+import { countChange } from '../../store/slices/currency/slice';
+import { selectorPrice, selectorCount, selectorActiveCharacter } from '../../store/slices/currency/selectors';
 
+import Currency from './ModalCurrency';
 import './sass/Modal.scss';
 
 function ModalView({  
@@ -19,10 +16,10 @@ function ModalView({
   image, 
   onClickShop
 }) {
-  const thanks = useSelector((state) => state.visibility.thanksInModal);
-  const price = useSelector((state) => state.currency.price);
-  const count = useSelector((state) => state.currency.count);
-  const activeCharacter = useSelector((state) => state.currency.activeCharacter);
+  const thanks = useSelector(selectorThanksInModal);
+  const price = useSelector(selectorPrice);
+  const count = useSelector(selectorCount);
+  const activeCharacter = useSelector(selectorActiveCharacter);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   return (

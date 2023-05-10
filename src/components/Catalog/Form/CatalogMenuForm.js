@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { shoesCreated } from '../../../store/slice/data';
+import { shoesCreated } from '../../../store/slices/shoes/slice';
+import { selectorShoes } from '../../../store/slices/shoes/selectors';
 import { useHttp } from '../../../hooks/httpHook';
 import CatalogMenuFormView from './CatalogMenuFormView';
 
@@ -15,7 +16,7 @@ import '../sass/CatalogMenuForm.scss';
 function CatalogMenuForm() {
   const { request } = useHttp();
   const dispatch = useDispatch();
-  const shoes = useSelector((state) => state.shoes.shoes);
+  const shoes = useSelector(selectorShoes);
   const { t } = useTranslation();
 
   const validationSchema = yup.object({

@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import withHeaderView from './WithHeaderView';
 import HeaderNav from './HeaderNav';
 
-import {
-  langChange
-} from '../../store/slice/header';
+import { langChange } from '../../store/slices/header/slice';
+import { fetchData } from '../../store/slices/shoes/slice';
+import { selectorLoadingShoes, selectorSearchValue } from '../../store/slices/shoes/selectors';
+import { selectorHeaderMenu, selectorLang } from '../../store/slices/header/selectors';
 
 import logo from '../../assets/icons/logo.png';
 import buy from '../../assets/icons/buy-icon.png';
@@ -16,13 +17,14 @@ import search from '../../assets/icons/search-icon.png';
 import './sass/Header.scss';
 
 function HeaderView({
-  onShowNavMenu, onValidateSearch, classMenu 
+  onShowNavMenu, onValidateSearch, classMenu, 
 }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const searchValue = useSelector((state) => state.shoes.searchValue);
-  const headerMenu = useSelector((state) => state.header.headerMenu);
-  const lang = useSelector((state) => state.header.lang);
+  const loadingShoes = useSelector(selectorLoadingShoes);
+  const searchValue = useSelector(selectorSearchValue);
+  const headerMenu = useSelector(selectorHeaderMenu);
+  const lang = useSelector(selectorLang);
 
   const menuItems = headerMenu.slice();
 
@@ -34,6 +36,15 @@ function HeaderView({
             nike
           </p>
           <img className="header__logo_icon" src={logo} alt="logo" />
+          <button 
+            type="button"
+            onClick={() => dispatch(fetchData())}
+            className={`header__logo_update ${loadingShoes ? 'load' : ''}`}
+          >
+            <span>
+              update
+            </span>
+          </button>
         </div>
         <nav className="header__nav">
           <div 

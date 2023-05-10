@@ -1,12 +1,10 @@
-import { useCallback } from 'react';
-
 // eslint-disable-next-line import/prefer-default-export
 export const useHttp = () => {
   const usaCurrency = 'Долар США';
 
   const euroCurrency = 'Євро';
 
-  const getResource = useCallback(async (
+  const getResource = async (
     url, 
     method = 'GET', 
     body = null, 
@@ -32,25 +30,25 @@ export const useHttp = () => {
     } catch (error) {
       throw new Error(error);
     }
-  });
+  };
 
-  const getValuesUnpacking = useCallback((data, inside) => {
+  const getValuesUnpacking = (data, inside) => {
     const includesItem = data.filter((item) => {
       return item.txt.toLowerCase().includes(inside.toLowerCase());
     });
     const { cc, rate, r030 } = includesItem[0];
     return { cc, r030, rate: rate.toFixed(2) };
-  });
+  };
 
-  const transformData = useCallback((data) => {
+  const transformData = (data) => {
     return [
       { cc: 'UAH', rate: 1, r030: 890 },
       getValuesUnpacking(data, usaCurrency),
       getValuesUnpacking(data, euroCurrency)
     ];
-  });
+  };
 
-  const request = useCallback(async (
+  const request = async (
     url, 
     custom = false,
     method = 'GET', 
@@ -61,7 +59,7 @@ export const useHttp = () => {
       return transformData(res);
     } 
     return res;
-  }, []);
+  };
 
   return { request };
 };

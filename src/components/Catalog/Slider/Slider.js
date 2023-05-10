@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { shoesUpdateAfterDrag } from '../../../store/slice/data';
+import { shoesUpdateAfterDrag } from '../../../store/slices/shoes/slice';
+import { selectorShoes } from '../../../store/slices/shoes/selectors';
+
 import { 
   CLICK_NEXT_BUTTON, 
   CLICK_PREVIOUS_BUTTON,
@@ -17,7 +19,7 @@ import SliderView from './SliderView';
 import '../sass/Slider.scss';
 
 function Slider() {
-  const shoes = useSelector((state) => state.shoes.shoes);
+  const shoes = useSelector(selectorShoes);
   const dispatch = useDispatch();
 
   const [overId, setOverId] = useState(null);

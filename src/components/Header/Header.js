@@ -1,20 +1,22 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import { 
   searchUpdate, 
   searchRequest,
   activePromoUpdate
-} from '../../store/slice/data';
-import { langInitialization } from '../../store/slice/header';
+} from '../../store/slices/shoes/slice';
+import { langInitialization } from '../../store/slices/header/slice';
+import { selectorLang } from '../../store/slices/header/selectors';
+import { selectorSearchValue } from '../../store/slices/shoes/selectors';
+
 import HeaderView from './HeaderView';
 
 function Header() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
-  const searchValue = useSelector((state) => state.shoes.searchValue);
-  const lang = useSelector((state) => state.header.lang);
+  const searchValue = useSelector(selectorSearchValue);
+  const lang = useSelector(selectorLang);
 
   // Sending the search data to the parent component
   const onValidateSearch = useCallback((e) => {

@@ -1,20 +1,12 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHttp } from '../../hooks/httpHook';
 
-import { 
-  shoesFetching, 
-  shoesFetched,
-  shoesFetchingError,
-  setActivePromoCard
-} from '../../store/slice/data';
-
-import { 
-  currencyFetching, 
-  currencyFetched,
-  currencyFetchingError
-} from '../../store/slice/currency';
+// Import from store
+import { fetchData, setActivePromoCard } from '../../store/slices/shoes/slice';
+import { selectorShoes } from '../../store/slices/shoes/selectors';
+import { selectorActiveModal } from '../../store/slices/visibility/selectors';
+import { fetchCurrency } from '../../store/slices/currency/slice';
 
 // Import components
 import Promo from '../../components/Promo/Promo';
@@ -24,25 +16,16 @@ import Modal from '../../components/Modal/Modal';
 
 function Men() {
   const dispatch = useDispatch();
-  const { request } = useHttp();
-  const shoes = useSelector((state) => state.shoes.shoes);
-  const activeModal = useSelector((state) => state.visibility.activeModal);
+  const shoes = useSelector(selectorShoes);
+  const activeModal = useSelector(selectorActiveModal);
 
   useEffect(() => {
-    // Отримання даних взуття
-    dispatch(shoesFetching());
-    request('http://localhost:3001/data', true)
-      .then((data) => dispatch(shoesFetched(data)))
-      .catch(() => dispatch(shoesFetchingError()));
-
-    // Отримання даних валюти
-    dispatch(currencyFetching());
-    request('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
-      .then((data) => dispatch(currencyFetched(data)))
-      .catch(() => dispatch(currencyFetchingError()));
+    // First getting data shoes and currency
+    dispatch(fetchData());
+    dispatch(fetchCurrency());
   }, []);
 
-  // Пошук та встановлення активної картки
+  // Searching and set active card
   useEffect(() => {
     dispatch(setActivePromoCard());
   }, [shoes]);
