@@ -7,6 +7,7 @@ function withHeaderView(BaseComponent) {
   }) {
     const [classMenu, setClassMenu] = useState(false);
 
+    // Функція активації меню для мобільних пристроїв
     const onShowNavMenu = useCallback(() => {
       setClassMenu((prevClassMenu) => !prevClassMenu);
     }, [classMenu]);

@@ -4,28 +4,6 @@
 @import "~/src/style/mixins.scss";
 .slider {
     
-    .slick-slider {
-        // .slick-prev {
-        //     left: -50px;
-        // }
-        .slick-slide {
-            display: flex;
-            justify-content: center;
-        }
-        .slick-dots {
-            .slick-active {
-                button:before {
-                    color: orange;
-                }
-            }
-            li {
-                button:before {
-                    color: #FAFF23;
-                } 
-            }
-        }
-    }
-    
     &_btn {
         transition: transform 0.9s;
         transform: translateX(0);
@@ -207,16 +185,10 @@
 }
 
 @media(max-width: 575px) {
-    .slick-slider {
-        .slick-prev {
-            left: -100%;
-            display: none;
-        }
-        .slick-next  {
-            left: -100%;
-        }
-    }
     .slider {
+        .buttons {
+            margin-bottom: 30px;
+        }
         &_btn {
             grid-row: 2;
             margin-top: 30px;

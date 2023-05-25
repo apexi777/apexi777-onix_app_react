@@ -216,7 +216,9 @@
     .header {
 
         &__logo {
-
+            &_update {
+               width: 100px; 
+            }
         }
         &__nav {
             display: block;

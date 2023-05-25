@@ -30,7 +30,7 @@ export const fetchCurrency = createAsyncThunk(
   'currency/fetchCurrency',
   () => {
     const { request } = useHttp();
-    return request('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
+    return request(`${process.env.REACT_APP_API_BANK_URL}/exchange?json`);
   }
 );
 
@@ -38,6 +38,10 @@ const currencySlice = createSlice({
   name: 'currency',
   initialState,
   reducers: {
+    fetchingCurrency: (state, action) => {
+      state.currency = action.payload;
+      state.usdRate = action.payload.find((item) => item.cc === 'USD').rate;
+    },
     countChange: (state, action) => {
       if (action.payload === BUTTON_REMOVE_COUNT) {
         if (state.count > 1) { 
@@ -89,6 +93,7 @@ const { actions, reducer } = currencySlice;
 
 export default reducer;
 export const {
+  fetchingCurrency,
   countChange,
   onCurrencyMenuUpdate,
   priceUpdate,

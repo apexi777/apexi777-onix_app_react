@@ -18,6 +18,7 @@ function Currency() {
             type="button" 
             className={`currency_nav${select ? ' select' : ''}`}
             key={id}
+            // Встановлення валюти згідно id 
             onClick={() => dispatch(onCurrencyMenuUpdate(id))}
           >
             {name}

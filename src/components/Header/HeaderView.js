@@ -6,9 +6,9 @@ import withHeaderView from './WithHeaderView';
 import HeaderNav from './HeaderNav';
 
 import { langChange } from '../../store/slices/header/slice';
-import { fetchData } from '../../store/slices/shoes/slice';
 import { selectorLoadingShoes, selectorSearchValue } from '../../store/slices/shoes/selectors';
 import { selectorHeaderMenu, selectorLang } from '../../store/slices/header/selectors';
+import { useGetShoesQuery } from '../../store/apis/shoes';
 
 import logo from '../../assets/icons/logo.png';
 import buy from '../../assets/icons/buy-icon.png';
@@ -19,6 +19,9 @@ import './sass/Header.scss';
 function HeaderView({
   onShowNavMenu, onValidateSearch, classMenu, 
 }) {
+  const {
+    refetch,
+  } = useGetShoesQuery();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const loadingShoes = useSelector(selectorLoadingShoes);
@@ -27,7 +30,6 @@ function HeaderView({
   const lang = useSelector(selectorLang);
 
   const menuItems = headerMenu.slice();
-
   return (
     <header className="header">
       <div className="container">
@@ -38,7 +40,7 @@ function HeaderView({
           <img className="header__logo_icon" src={logo} alt="logo" />
           <button 
             type="button"
-            onClick={() => dispatch(fetchData())}
+            onClick={refetch}
             className={`header__logo_update ${loadingShoes ? 'load' : ''}`}
           >
             <span>

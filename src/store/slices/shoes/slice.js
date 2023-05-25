@@ -28,6 +28,11 @@ const dataSlice = createSlice({
   name: 'shoes',
   initialState,
   reducers: {
+    fetchingData: (state, action) => {
+      state.shoes = action.payload;
+      state.loadingShoes = false;
+      state.visibleShoes = action.payload;
+    },
     shoesCreated: (state, action) => {
       state.shoes.push(action.payload);
     },
@@ -86,7 +91,6 @@ const dataSlice = createSlice({
         state.shoes = action.payload;
         state.loadingShoes = false;
         state.visibleShoes = action.payload;
-        state.searchValue = '';
       })
       .addCase(fetchData.rejected, (state) => {
         state.loadingShoes = false;
@@ -99,6 +103,7 @@ const { actions, reducer } = dataSlice;
 
 export default reducer;
 export const {
+  fetchingData,
   shoesCreated,
   shoesDeleted,
   shoesToggleFavorite,

@@ -165,3 +165,10 @@
         }
     }
 }
+
+
+@media(max-width: 575px) {
+    .block_card {
+        width: 100vw;
+    }
+}

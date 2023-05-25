@@ -1,24 +1,27 @@
+// Підключення бібліотек
 import { useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { shoesCreated } from '../../../store/slices/shoes/slice';
-import { selectorShoes } from '../../../store/slices/shoes/selectors';
-import { useHttp } from '../../../hooks/httpHook';
+// Імпорт компонент
 import CatalogMenuFormView from './CatalogMenuFormView';
+
+// Імпорт стору
+import { useCreateShoeMutation } from '../../../store/apis/shoes';
+import { selectorShoes } from '../../../store/slices/shoes/selectors';
 
 import '../sass/CatalogMenuForm.scss';
 
 function CatalogMenuForm() {
-  const { request } = useHttp();
-  const dispatch = useDispatch();
   const shoes = useSelector(selectorShoes);
   const { t } = useTranslation();
+  const [createShoe] = useCreateShoeMutation();
 
+  // Обьект для валідації введених даних
   const validationSchema = yup.object({
     name: yup.string()
       .required(t('catalog.form.validate.name.req'))
@@ -29,7 +32,7 @@ function CatalogMenuForm() {
       .typeError(t('catalog.form.validate.price.type')),
   });
 
-  // Add new object to data object
+  // Функція створення нової картки
   const addNewCards = useCallback((name, price) => {
     if (typeof (name) === 'string' && typeof (price) === 'number') {
       const newCards = {
@@ -42,13 +45,11 @@ function CatalogMenuForm() {
         price,
         select: {}
       };
-      request('http://localhost:3001/data', true, 'POST', JSON.stringify(newCards))
-        // eslint-disable-next-line no-console
-        .then((res) => console.log(res, 'Отправка успешна'));
-      dispatch(shoesCreated(newCards));
+      createShoe(newCards).unwrap();
     }
   }, [shoes]);
 
+  // Хук з бібліотеки React hook form для керування формами 
   const {
     register,
     handleSubmit,
@@ -65,6 +66,7 @@ function CatalogMenuForm() {
     resolver: yupResolver(validationSchema)
   });
 
+  // Функція очищення помилок та введених даних по сумісному натиску на Ctrl та 1
   const onPressKey = (e) => {
     if (e.key === '1' && e.ctrlKey) {
       clearErrors();
@@ -72,9 +74,11 @@ function CatalogMenuForm() {
     }
   };
 
+  // Реєстрація полів форми 
   const nameReg = register('name'); 
   const priceReg = register('price');
 
+  // При успішній віддправці даних викликається очистка поля та помилок
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       clearErrors();

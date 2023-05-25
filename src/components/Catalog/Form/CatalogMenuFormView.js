@@ -1,7 +1,9 @@
+// Підключення бібліотек
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+// Імпорт стору
 import { filterMenuToggle } from '../../../store/slices/visibility/slice';
 
 function CatalogMenuFormView({

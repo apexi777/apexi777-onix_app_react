@@ -1,19 +1,17 @@
+// Підключення бібліотек
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
+
+// Підключення власних хуків
 import { useSorting } from '../../hooks/sortingHook';
 
-import { 
-  shoesApplyFilter,
-  shoesUpdateAfterDrag
-} from '../../store/slices/shoes/slice';
+// Імпорт стору
+import { shoesApplyFilter, shoesUpdateAfterDrag } from '../../store/slices/shoes/slice';
+import { selectorShoes, selectorFilter } from '../../store/slices/shoes/selectors';
 
-import {
-  selectorShoes,
-  selectorFilter
-} from '../../store/slices/shoes/selectors';
-
+// Константы
 import {
   PRICE_HIGH_TO_LOW, 
   PRICE_LOW_TO_HIGH,
@@ -29,6 +27,7 @@ function Sorting() {
   const { t } = useTranslation();
   const { onSortDataByPrice } = useSorting();
 
+  // Сортування даних згідно з обраним filter-ом
   useEffect(() => {
     if (filter !== null) {
       const result = onSortDataByPrice(shoes, filter);

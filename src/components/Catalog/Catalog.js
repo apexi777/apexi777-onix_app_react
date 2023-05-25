@@ -1,7 +1,13 @@
+// Підключення бібліотек
 import { useSelector } from 'react-redux';
+
+// Підключення компонент
 import Slider from './Slider/Slider';
 import CatalogMenu from './Form/CatalogMenu';
+
+// Підключення стору
 import { selectorShoes } from '../../store/slices/shoes/selectors';
+
 import './sass/Catalog.scss';
 
 function Catalog() {

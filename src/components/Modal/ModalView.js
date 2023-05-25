@@ -1,14 +1,18 @@
+// Підключення бібліотек
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
+// Імпорт стору
 import { visibilityModalWindow, thanksActivated } from '../../store/slices/visibility/slice';
 import { selectorThanksInModal } from '../../store/slices/visibility/selectors';
 import { countChange } from '../../store/slices/currency/slice';
 import { selectorPrice, selectorCount, selectorActiveCharacter } from '../../store/slices/currency/selectors';
 
+// Імпорт компонент
 import Currency from './ModalCurrency';
+
 import './sass/Modal.scss';
 
 function ModalView({  
@@ -36,6 +40,7 @@ function ModalView({
             <button 
               type="button" 
               data="data-rm" 
+              // Коригування змінної count згідно атрибуту data
               onClick={(e) => dispatch(countChange(e.target.getAttribute('data')))} 
               className="modal_info_btn"
             >
@@ -46,6 +51,7 @@ function ModalView({
             <button 
               type="button"
               data="data-add"
+              // Коригування змінної count згідно атрибуту data
               onClick={(e) => dispatch(countChange(e.target.getAttribute('data')))} 
               className="modal_info_btn"
             >

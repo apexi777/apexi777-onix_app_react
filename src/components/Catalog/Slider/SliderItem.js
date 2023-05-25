@@ -1,8 +1,11 @@
+// Підключення бібліотек
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
+// Імпорт компонентт
 import SlideItemView from './SlideItemView';
 
+// Імпорт контенту
 import plus from '../../../assets/img/plus.png';
 import loadingImage from '../../../assets/spinner.svg';
 import errorImage from '../../../assets/error_image.png';
@@ -24,9 +27,11 @@ function SliderItem({
   id,
   onDragOver 
 }) {
+  // Стейт помилки та завантаження слайду
   const [error, setError] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
+  // Функція обробки помилки
   const onError = () => {
     if (!error) {
       setError(true);
@@ -34,6 +39,7 @@ function SliderItem({
     }
   };
 
+  // Функція обробки завантаження
   const imageOnLoaded = () => {
     setLoaded(true);
   };

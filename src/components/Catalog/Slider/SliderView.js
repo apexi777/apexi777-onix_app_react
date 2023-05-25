@@ -1,5 +1,8 @@
+// Підключення бібліотек
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+
+// Імпорт стору
 import { 
   shoesUpdateAfterSelectCatalog,
   shoesDeleted,
@@ -37,6 +40,7 @@ function SliderView({
           const {
             id, name, price, visibleOnPromo, image, select 
           } = card;
+          // Оновлення стилю для відображення в слайдері
           const style = updateStyleByCard(index, count, visibleOnPromo);
           return (
             <SliderItem 

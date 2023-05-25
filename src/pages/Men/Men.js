@@ -1,14 +1,20 @@
+// Підключення бібліотек
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-// Import from store
-import { fetchData, setActivePromoCard } from '../../store/slices/shoes/slice';
+// Імпорти власних хуків
+import { transformData } from '../../hooks/currencyHook';
+
+// Імпорт стору
+import { fetchingData, setActivePromoCard } from '../../store/slices/shoes/slice';
 import { selectorShoes } from '../../store/slices/shoes/selectors';
 import { selectorActiveModal } from '../../store/slices/visibility/selectors';
-import { fetchCurrency } from '../../store/slices/currency/slice';
+import { fetchingCurrency } from '../../store/slices/currency/slice';
+import { useGetShoesQuery } from '../../store/apis/shoes';
+import { useGetCurrencyQuery } from '../../store/apis/currency';
 
-// Import components
+// Імпорти підключених компонент
 import Promo from '../../components/Promo/Promo';
 import Sorting from '../../components/Sorting/Sorting';
 import Catalog from '../../components/Catalog/Catalog';
@@ -19,13 +25,33 @@ function Men() {
   const shoes = useSelector(selectorShoes);
   const activeModal = useSelector(selectorActiveModal);
 
-  useEffect(() => {
-    // First getting data shoes and currency
-    dispatch(fetchData());
-    dispatch(fetchCurrency());
-  }, []);
+  const {
+    data: shoesData = [],
+    isSuccess: isSuccessShoes,
+    isFetching,
+  } = useGetShoesQuery();
 
-  // Searching and set active card
+  const {
+    data: currencyObject,
+    isSuccess: isSuccessCurrency,
+  } = useGetCurrencyQuery();
+
+  // Отримання даних взуття від локальної АРІ json-server
+  useEffect(() => {
+    if (isSuccessShoes) {
+      dispatch(fetchingData(shoesData));
+    }
+  }, [isSuccessShoes, shoesData, isFetching]); // При першому монтуванні та при зміні даних в БД
+
+  // Отримання даних валюти від АРІ National Bank Ukraine
+  useEffect(() => {
+    if (isSuccessCurrency) {
+      transformData(currencyObject)
+        .then((data) => dispatch(fetchingCurrency(data)));
+    }
+  }, [isSuccessCurrency]);
+
+  // Встановлення активної картки при зміні даних взуття
   useEffect(() => {
     dispatch(setActivePromoCard());
   }, [shoes]);

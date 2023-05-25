@@ -1,8 +1,8 @@
+// Підключення бібліотек
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-// Navigation menu component from header
 function HeaderNav({ name }) {
   const { t } = useTranslation();
   return (

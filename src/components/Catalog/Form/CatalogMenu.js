@@ -1,12 +1,17 @@
+// Підключення бібліотек
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+// Підключення компонент
+import CatalogMenuForm from './CatalogMenuForm';
+
+// Підключення стору
 import { 
   filterMenuToggle,
   visibilityModalWindow
 } from '../../../store/slices/visibility/slice';
 import { selectorFilterMenuView } from '../../../store/slices/visibility/selectors';
 
-import CatalogMenuForm from './CatalogMenuForm';
 import '../sass/CatalogMenu.scss';
 
 function CatalogMenu() {
@@ -18,6 +23,7 @@ function CatalogMenu() {
     <div className={`buttons ${filterMenuView ? 'active' : ''}`}>
       <button 
         type="button" 
+        // Активація попапу
         onClick={() => dispatch(visibilityModalWindow())} 
         className="slider_btn"
       >
@@ -25,6 +31,7 @@ function CatalogMenu() {
       </button> 
       <button 
         type="button"
+        // Активація видимості форми для заповнення нової картки
         onClick={() => dispatch(filterMenuToggle())}
         className="slider_btn sort"
       >

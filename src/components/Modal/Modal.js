@@ -13,7 +13,7 @@ function Modal() {
   const count = useSelector(selectorCount);
   const currencyMenu = useSelector(selectorCurrencyMenu);
 
-  // In modal component click to button 'add to bag' 
+  // Закриття попапу по тайм-ауту в delay
   const onClickShop = () => {
     const delay = 3;
     const timer = setTimeout(() => dispatch(visibilityModalWindow()), delay * 1000);
@@ -22,12 +22,12 @@ function Modal() {
     };
   };
 
-  // Update active currency symbol
+  // Оновлення обраного символу валюти
   useEffect(() => {
     dispatch(activeCharacterUpdate());
   }, [currencyMenu]);
 
-  // Update price after changing count or currencyMenu data
+  // Оновлення прайсу згідно з обраною валютою та кількістю товару
   useEffect(() => {
     dispatch(priceUpdate(activePromo.price));
   }, [count, currencyMenu]);
