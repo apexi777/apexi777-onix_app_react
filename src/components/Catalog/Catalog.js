@@ -15,14 +15,12 @@ function Catalog() {
   return (
     <div className="slider">
       <div className="container">
-        {shoes.length !== 0
-          ? (
-            <>
-              <CatalogMenu />
-              <Slider />
-            </>
-          )
-          : null}
+        {!!shoes.length && (
+        <>
+          <CatalogMenu />
+          <Slider />
+        </>
+        )}
       </div>
     </div>
   );

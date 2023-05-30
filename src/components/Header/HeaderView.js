@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import withHeaderView from './WithHeaderView';
 import HeaderNav from './HeaderNav';
 
-import { langChange } from '../../store/slices/header/slice';
+import { langUpdate } from '../../store/slices/header/slice';
 import { selectorLoadingShoes, selectorSearchValue } from '../../store/slices/shoes/selectors';
 import { selectorHeaderMenu, selectorLang } from '../../store/slices/header/selectors';
 import { useGetShoesQuery } from '../../store/apis/shoes';
@@ -94,7 +94,7 @@ function HeaderView({
                   value="en"
                   className="menu_lang_input"
                   checked={lang === 'en'}
-                  onChange={(e) => dispatch(langChange(e.currentTarget.value))}
+                  onChange={(e) => dispatch(langUpdate(e.currentTarget.value))}
                 />
               </label>
               <label htmlFor="ukraine">
@@ -106,7 +106,7 @@ function HeaderView({
                   value="ua"
                   className="menu_lang_input"
                   checked={lang === 'ua'}
-                  onChange={(e) => dispatch(langChange(e.currentTarget.value))}
+                  onChange={(e) => dispatch(langUpdate(e.currentTarget.value))}
                 />
               </label>
 

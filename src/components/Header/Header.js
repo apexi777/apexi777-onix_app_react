@@ -41,9 +41,9 @@ function Header() {
   }, []);
 
   // Оновлення мовних даних після оновлення змінної lang
-  useEffect(() => {
-    i18n.changeLanguage(lang);
-  }, [lang]);
+  // useEffect(() => {
+  //   i18n.changeLanguage(lang);
+  // }, [lang]);
 
   return (
     <HeaderView

@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useTranslation } from 'react-i18next';
 
 const initialState = {
   headerMenu: [
@@ -10,6 +11,14 @@ const initialState = {
   lang: ''
 };
 
+export const langUpdate = createAsyncThunk(
+  'header/langUpdate',
+  (language) => {
+    const { i18n } = useTranslation();
+    i18n.changeLanguage(language);
+  }
+);
+
 const headerSlice = createSlice({
   name: 'header',
   initialState,
@@ -20,9 +29,22 @@ const headerSlice = createSlice({
     langChange: (state, action) => {
       if (action.payload !== state.lang) {
         state.lang = action.payload;
-        // i18n.changeLanguage(action.payload);
       }
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(langUpdate.pending, (state, action) => {
+        console.log(action.payload);
+      })
+      .addCase(langUpdate.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.lang = action.payload; 
+      })
+      .addCase(langUpdate.rejected, (state) => {
+        console.log(state.lang);
+      })
+      .addDefaultCase(() => {});
   }
 });
 
@@ -31,5 +53,5 @@ const { actions, reducer } = headerSlice;
 export default reducer;
 export const {
   langInitialization,
-  langChange
+  langChange,
 } = actions;
