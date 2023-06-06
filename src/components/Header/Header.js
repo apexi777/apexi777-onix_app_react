@@ -9,8 +9,7 @@ import {
   searchRequest,
   activePromoUpdate
 } from '../../store/slices/shoes/slice';
-import { langInitialization } from '../../store/slices/header/slice';
-import { selectorLang } from '../../store/slices/header/selectors';
+import { langUpdate } from '../../store/slices/header/slice';
 import { selectorSearchValue } from '../../store/slices/shoes/selectors';
 
 // Імпорт компонент
@@ -20,7 +19,6 @@ function Header() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const searchValue = useSelector(selectorSearchValue);
-  const lang = useSelector(selectorLang);
 
   // Валідація введених данних в пошуковій строці та внесення до змінної searchValue
   const onValidateSearch = useCallback((e) => {
@@ -37,13 +35,8 @@ function Header() {
 
   // Ініціалізація мовних даних 
   useEffect(() => {
-    dispatch(langInitialization(i18n.language));
+    dispatch(langUpdate({ localLng: i18n }));
   }, []);
-
-  // Оновлення мовних даних після оновлення змінної lang
-  // useEffect(() => {
-  //   i18n.changeLanguage(lang);
-  // }, [lang]);
 
   return (
     <HeaderView

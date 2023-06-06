@@ -1,3 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 export const selectorCurrency = ({ currency }) => currency.currency;
 
 export const selectorUsdRate = ({ currency }) => currency.usdRate;
@@ -8,8 +10,10 @@ export const selectorCurrencyLoadedStatus = ({ currency }) => currency.currencyL
 
 export const selectorPrice = ({ currency }) => currency.price;
 
-export const selectorCount = ({ currency }) => currency.count;
+export const selectorActiveCharacter = ({ currency }) => currency.currencyMenu.filter((item) => item.select);
 
-export const selectorActiveCharacter = ({ currency }) => currency.activeCharacter;
+const select = (state) => state.currency;
 
-export const selectorCurrencyMenu = ({ currency }) => currency.currencyMenu;
+export const selectorCount = createSelector(select, (currency) => currency.count);
+
+export const selectorCurrencyMenu = createSelector(select, (currency) => currency.currencyMenu);

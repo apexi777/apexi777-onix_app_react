@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { visibilityModalWindow } from '../../store/slices/visibility/slice';
-import { activeCharacterUpdate, priceUpdate } from '../../store/slices/currency/slice';
+import { visibilityModalWindow, thanksActivated } from '../../store/slices/visibility/slice';
+import { priceUpdate } from '../../store/slices/currency/slice';
 import { selectorActivePromo } from '../../store/slices/shoes/selectors';
 import { selectorCount, selectorCurrencyMenu } from '../../store/slices/currency/selectors';
 
@@ -15,17 +15,10 @@ function Modal() {
 
   // Закриття попапу по тайм-ауту в delay
   const onClickShop = () => {
+    dispatch(thanksActivated()); 
     const delay = 3;
-    const timer = setTimeout(() => dispatch(visibilityModalWindow()), delay * 1000);
-    return () => {
-      clearTimeout(timer);
-    };
+    setTimeout(() => dispatch(visibilityModalWindow()), delay * 1000);
   };
-
-  // Оновлення обраного символу валюти
-  useEffect(() => {
-    dispatch(activeCharacterUpdate());
-  }, [currencyMenu]);
 
   // Оновлення прайсу згідно з обраною валютою та кількістю товару
   useEffect(() => {

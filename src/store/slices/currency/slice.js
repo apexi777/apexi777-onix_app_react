@@ -23,7 +23,7 @@ const initialState = {
     {
       id: 902, name: 'EUR', character: '€', select: false 
     }
-  ]
+  ],
 };
 
 export const fetchCurrency = createAsyncThunk(
@@ -68,9 +68,6 @@ const currencySlice = createSlice({
         state.price = Math.round((action.payload / currencyData.rate) * state.usdRate) * state.count;
       }
     },
-    activeCharacterUpdate: (state) => {
-      [state.activeCharacter] = state.currencyMenu.filter((item) => item.select);
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,5 +94,4 @@ export const {
   countChange,
   onCurrencyMenuUpdate,
   priceUpdate,
-  activeCharacterUpdate
 } = actions;

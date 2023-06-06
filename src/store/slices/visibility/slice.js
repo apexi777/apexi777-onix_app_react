@@ -4,7 +4,7 @@ const initialState = {
   activeModal: false,
   promoLoading: false,
   filterMenuView: false,
-  thanksInModal: false
+  thanksInModal: false,
 };
 
 const visibilitySlice = createSlice({
@@ -12,7 +12,10 @@ const visibilitySlice = createSlice({
   initialState,
   reducers: {
     visibilityModalWindow: (state) => { 
-      state.activeModal = !state.activeModal; 
+      state.activeModal = !state.activeModal;
+      if (!state.activeModal) {
+        state.thanksInModal = false;
+      }
     },
     promoLoadingStatus: (state) => {
       state.promoLoading = true;
@@ -22,7 +25,7 @@ const visibilitySlice = createSlice({
     },
     thanksActivated: (state) => {
       state.thanksInModal = !state.thanksInModal;
-    }
+    },
   }
 });
 
@@ -33,5 +36,5 @@ export const {
   visibilityModalWindow,
   promoLoadingStatus,
   filterMenuToggle,
-  thanksActivated
+  thanksActivated,
 } = actions;

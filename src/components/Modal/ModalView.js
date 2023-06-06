@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Імпорт стору
-import { visibilityModalWindow, thanksActivated } from '../../store/slices/visibility/slice';
+import { visibilityModalWindow } from '../../store/slices/visibility/slice';
 import { selectorThanksInModal } from '../../store/slices/visibility/selectors';
-import { countChange } from '../../store/slices/currency/slice';
 import { selectorPrice, selectorCount, selectorActiveCharacter } from '../../store/slices/currency/selectors';
+import { countChange } from '../../store/slices/currency/slice';
 
 // Імпорт компонент
 import Currency from './ModalCurrency';
@@ -78,7 +78,6 @@ function ModalView({
           <button 
             onClick={() => {
               onClickShop(); 
-              dispatch(thanksActivated()); 
             }} 
             type="button" 
             className="modal_price_button"

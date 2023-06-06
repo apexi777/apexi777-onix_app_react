@@ -22,7 +22,7 @@ function HeaderView({
   const {
     refetch,
   } = useGetShoesQuery();
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const dispatch = useDispatch();
   const loadingShoes = useSelector(selectorLoadingShoes);
   const searchValue = useSelector(selectorSearchValue);
@@ -94,7 +94,10 @@ function HeaderView({
                   value="en"
                   className="menu_lang_input"
                   checked={lang === 'en'}
-                  onChange={(e) => dispatch(langUpdate(e.currentTarget.value))}
+                  onChange={(e) => dispatch(langUpdate({ 
+                    localLng: i18n,
+                    target: e.currentTarget.value,
+                  }))}
                 />
               </label>
               <label htmlFor="ukraine">
@@ -106,7 +109,10 @@ function HeaderView({
                   value="ua"
                   className="menu_lang_input"
                   checked={lang === 'ua'}
-                  onChange={(e) => dispatch(langUpdate(e.currentTarget.value))}
+                  onChange={(e) => dispatch(langUpdate({ 
+                    localLng: i18n,
+                    target: e.currentTarget.value,
+                  }))}
                 />
               </label>
 
